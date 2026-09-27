@@ -421,6 +421,11 @@ class Module(nn.Module):
         )
 
 
+    def text_debug_decode(self, hidden):
+        """Debug-only access to the existing tied vocabulary projection; no new weights."""
+        return self.embedder.decode(hidden)
+
+
 def _apply_rope(x, *, positions, max_wavelength=10_000):
     """Applies RoPE positions [B, L] to x [B, L, H, D]."""
     freq_exponents = (2.0 / x.shape[-1]) * jnp.arange(x.shape[-1] // 2, dtype=jnp.float32)

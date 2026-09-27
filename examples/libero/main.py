@@ -13,6 +13,7 @@ from openpi_client import image_tools
 from openpi_client import websocket_client_policy as _websocket_client_policy
 import tqdm
 import tyro
+from text_debug_visuals import infer_with_text, annotated_frame
 
 LIBERO_DUMMY_ACTION = [0.0] * 6 + [-1.0]
 LIBERO_ENV_RESOLUTION = 256  # resolution used to render training data
@@ -27,6 +28,10 @@ class Args:
     port: int = 8000
     resize_size: int = 224
     replan_steps: int = 5
+    text_two_phase: bool = False
+    text_pause_before_action: bool = False
+    text_overlay: bool = True
+    skip_init_states: bool = False  # Use env.reset() for text debugging with newer PyTorch versions.
 
     #################################################################################################################
     # LIBERO environment-specific parameters
@@ -36,6 +41,7 @@ class Args:
     )
     num_steps_wait: int = 10  # Number of steps to wait for objects to stabilize i n sim
     num_trials_per_task: int = 50  # Number of rollouts per task
+    max_tasks: int = 0  # 0 runs the full suite; positive values run the first N tasks for debugging.
 
     #################################################################################################################
     # Utils
@@ -53,6 +59,9 @@ def eval_libero(args: Args) -> None:
     benchmark_dict = benchmark.get_benchmark_dict()
     task_suite = benchmark_dict[args.task_suite_name]()
     num_tasks_in_suite = task_suite.n_tasks
+    if args.max_tasks < 0:
+        raise ValueError("max_tasks must be nonnegative")
+    task_count = min(num_tasks_in_suite, args.max_tasks) if args.max_tasks else num_tasks_in_suite
     logging.info(f"Task suite: {args.task_suite_name}")
 
     pathlib.Path(args.video_out_path).mkdir(parents=True, exist_ok=True)
@@ -74,12 +83,12 @@ def eval_libero(args: Args) -> None:
 
     # Start evaluation
     total_episodes, total_successes = 0, 0
-    for task_id in tqdm.tqdm(range(num_tasks_in_suite)):
+    for task_id in tqdm.tqdm(range(task_count)):
         # Get task
         task = task_suite.get_task(task_id)
 
         # Get default LIBERO initial states
-        initial_states = task_suite.get_task_init_states(task_id)
+        initial_states = None if args.skip_init_states else task_suite.get_task_init_states(task_id)
 
         # Initialize LIBERO environment and task description
         env, task_description = _get_libero_env(task, LIBERO_ENV_RESOLUTION, args.seed)
@@ -90,15 +99,17 @@ def eval_libero(args: Args) -> None:
             logging.info(f"\nTask: {task_description}")
 
             # Reset environment
-            env.reset()
+            obs = env.reset()
             action_plan = collections.deque()
 
             # Set initial states
-            obs = env.set_init_state(initial_states[episode_idx])
+            if initial_states is not None:
+                obs = env.set_init_state(initial_states[episode_idx])
 
             # Setup
             t = 0
             replay_images = []
+            last_text_info = {}
 
             logging.info(f"Starting episode {task_episodes+1}...")
             while t < max_steps + args.num_steps_wait:
@@ -122,7 +133,6 @@ def eval_libero(args: Args) -> None:
                     )
 
                     # Save preprocessed image for replay video
-                    replay_images.append(img)
 
                     if not action_plan:
                         # Finished executing previous action chunk -- compute new chunk
@@ -141,12 +151,22 @@ def eval_libero(args: Args) -> None:
                         }
 
                         # Query model to get action
-                        action_chunk = client.infer(element)["actions"]
+                        response = infer_with_text(
+                            client, element, two_phase=args.text_two_phase,
+                            pause=args.text_pause_before_action,
+                        )
+                        last_text_info = response
+                        print(f"[CHUNK] task={task_id} episode={episode_idx} step={t} "
+                              f"id={response.get('plan_id', 'unknown')}", flush=True)
+                        action_chunk = response["actions"]
                         assert (
                             len(action_chunk) >= args.replan_steps
                         ), f"We want to replan every {args.replan_steps} steps, but policy only predicts {len(action_chunk)} steps."
                         action_plan.extend(action_chunk[: args.replan_steps])
 
+                    replay_images.append(annotated_frame(
+                        img, last_text_info, t, enabled=args.text_overlay
+                    ))
                     action = action_plan.popleft()
 
                     # Execute action in environment
@@ -167,11 +187,12 @@ def eval_libero(args: Args) -> None:
             # Save a replay video of the episode
             suffix = "success" if done else "failure"
             task_segment = task_description.replace(" ", "_")
-            imageio.mimwrite(
-                pathlib.Path(args.video_out_path) / f"rollout_{task_segment}_{suffix}.mp4",
-                [np.asarray(x) for x in replay_images],
-                fps=10,
-            )
+            if replay_images:
+                imageio.mimwrite(
+                    pathlib.Path(args.video_out_path) / f"rollout_{task_segment}_ep{episode_idx:03d}_{suffix}.mp4",
+                    [np.asarray(x) for x in replay_images],
+                    fps=10,
+                )
 
             # Log current results
             logging.info(f"Success: {done}")
