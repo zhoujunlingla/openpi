@@ -45,7 +45,7 @@ def annotated_frame(rgb, result, step, enabled=True):
     # Pillow's default font is ASCII-only. Escape other Unicode characters in
     # the video; the console and server JSONL retain the exact decoded text.
     lines = [title]
-    for label, value in (("VLM", text), ("ACTION", action_prompt)):
+    for label, value in (("VLM", text), ("ACTION_INPUT", action_prompt)):
         visible = (label + ": " + str(value).replace("\n", " ")).encode("ascii", "backslashreplace").decode("ascii")
         lines.extend(textwrap.wrap(visible, width=max(24, image.width // 6 - 2)))
     if len(lines) > 13:
