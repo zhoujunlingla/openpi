@@ -1,0 +1,18 @@
+{
+  "hf_repo": "lerobot/pi05_libero_base",
+  "hf_revision": "a217bfd3b14673cf2ce597e69997ab21866438dd",
+  "weight_key": "paligemma_with_expert.paligemma.model.language_model.layers.0.self_attn.q_proj.weight",
+  "sample": "layer0 q_proj output row 0, all 2048 inputs",
+  "comparisons": {
+    "pi05_base": {
+      "rms_error": 0.0042777047492563725,
+      "max_abs_error": 0.01751113496720791,
+      "pearson_r": 0.9824752048072523
+    },
+    "pi05_libero": {
+      "rms_error": 3.8949296140344813e-05,
+      "max_abs_error": 0.00023661553859710693,
+      "pearson_r": 0.9999985562951532
+    }
+  }
+}
