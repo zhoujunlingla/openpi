@@ -1,0 +1,479 @@
+{
+  "protocol": "pi05_base VLM text -> same pi05_base action policy, condition mode, LIBERO Spatial, 3 episodes/task, seed 7, skip_init_states, replan every 5 executed actions; LIBERO normalization statistics from pi05_libero assets",
+  "episodes": 30,
+  "successes": 0,
+  "replanning_chunks": 1320,
+  "unique_plan_ids": 1320,
+  "all_action_prompts_equal_generated_text": true,
+  "invalid_generated_text_chunks": 0,
+  "bad_action_shapes": 0,
+  "tasks": [
+    {
+      "task": "pick up the black bowl between the plate and the ramekin and place it on the plate",
+      "successes": 0,
+      "episodes": 3,
+      "videos": [
+        "rollout_pick_up_the_black_bowl_between_the_plate_and_the_ramekin_and_place_it_on_the_plate_ep000_failure.mp4",
+        "rollout_pick_up_the_black_bowl_between_the_plate_and_the_ramekin_and_place_it_on_the_plate_ep001_failure.mp4",
+        "rollout_pick_up_the_black_bowl_between_the_plate_and_the_ramekin_and_place_it_on_the_plate_ep002_failure.mp4"
+      ],
+      "replanning_chunks": 132,
+      "first_eight_generated_texts": [
+        "pick up small plate",
+        "pick up the black bowl",
+        "pick up black bowl",
+        "pick up the black bowl",
+        "pick up black bowl",
+        "pick up black bowl",
+        "pick up black bowl",
+        "pick up black bowl"
+      ],
+      "most_common_generated_texts": [
+        [
+          "pick up the black bowl",
+          73
+        ],
+        [
+          "pick up black bowl",
+          38
+        ],
+        [
+          "pick up bowl",
+          19
+        ],
+        [
+          "pick up small plate",
+          1
+        ],
+        [
+          "move the black bowl",
+          1
+        ]
+      ]
+    },
+    {
+      "task": "pick up the black bowl from table center and place it on the plate",
+      "successes": 0,
+      "episodes": 3,
+      "videos": [
+        "rollout_pick_up_the_black_bowl_from_table_center_and_place_it_on_the_plate_ep000_failure.mp4",
+        "rollout_pick_up_the_black_bowl_from_table_center_and_place_it_on_the_plate_ep001_failure.mp4",
+        "rollout_pick_up_the_black_bowl_from_table_center_and_place_it_on_the_plate_ep002_failure.mp4"
+      ],
+      "replanning_chunks": 132,
+      "first_eight_generated_texts": [
+        "pick up small plate",
+        "pick up small plate",
+        "The image shows a single black bowl on the table. It's located in",
+        "The black bowl is positioned to the right of the black bowl on the table.",
+        "The image shows a single black bowl on the right side of the table. This",
+        "The image shows a single black bowl on the table. It's located in",
+        "pick up black bowl",
+        "pick up bowl"
+      ],
+      "most_common_generated_texts": [
+        [
+          "pick up bowl",
+          64
+        ],
+        [
+          "pick up black bowl",
+          23
+        ],
+        [
+          "pick up small plate",
+          12
+        ],
+        [
+          "The image shows a single black bowl on the table. It's located in",
+          7
+        ],
+        [
+          "pick up the black bowl",
+          6
+        ],
+        [
+          "put bowl on plate",
+          4
+        ]
+      ]
+    },
+    {
+      "task": "pick up the black bowl in the top drawer of the wooden cabinet and place it on the plate",
+      "successes": 0,
+      "episodes": 3,
+      "videos": [
+        "rollout_pick_up_the_black_bowl_in_the_top_drawer_of_the_wooden_cabinet_and_place_it_on_the_plate_ep000_failure.mp4",
+        "rollout_pick_up_the_black_bowl_in_the_top_drawer_of_the_wooden_cabinet_and_place_it_on_the_plate_ep001_failure.mp4",
+        "rollout_pick_up_the_black_bowl_in_the_top_drawer_of_the_wooden_cabinet_and_place_it_on_the_plate_ep002_failure.mp4"
+      ],
+      "replanning_chunks": 132,
+      "first_eight_generated_texts": [
+        "pick up the black bowl",
+        "pick up the black bowl",
+        "pick up the black bowl",
+        "pick up black bowl",
+        "pick up stainless steel plate",
+        "pick up the black bowl",
+        "pick up the black bowl",
+        "pick up the black bowl"
+      ],
+      "most_common_generated_texts": [
+        [
+          "pick up the black bowl",
+          78
+        ],
+        [
+          "pick up bowl",
+          31
+        ],
+        [
+          "pick up the large bowl",
+          8
+        ],
+        [
+          "pick up stainless steel plate",
+          4
+        ],
+        [
+          "pick up the round black container",
+          3
+        ],
+        [
+          "pick up the large plate",
+          3
+        ]
+      ]
+    },
+    {
+      "task": "pick up the black bowl next to the cookie box and place it on the plate",
+      "successes": 0,
+      "episodes": 3,
+      "videos": [
+        "rollout_pick_up_the_black_bowl_next_to_the_cookie_box_and_place_it_on_the_plate_ep000_failure.mp4",
+        "rollout_pick_up_the_black_bowl_next_to_the_cookie_box_and_place_it_on_the_plate_ep001_failure.mp4",
+        "rollout_pick_up_the_black_bowl_next_to_the_cookie_box_and_place_it_on_the_plate_ep002_failure.mp4"
+      ],
+      "replanning_chunks": 132,
+      "first_eight_generated_texts": [
+        "pick up the black bowl",
+        "pick up bowl",
+        "pick up the black bowl",
+        "pick up stainless bowl",
+        "pick up the black bowl",
+        "pick up small plate",
+        "pick up the black bowl",
+        "pick up bowl"
+      ],
+      "most_common_generated_texts": [
+        [
+          "pick up the black bowl",
+          71
+        ],
+        [
+          "pick up bowl",
+          48
+        ],
+        [
+          "pick up the blue bowl",
+          5
+        ],
+        [
+          "pick up stainless bowl",
+          1
+        ],
+        [
+          "pick up small plate",
+          1
+        ],
+        [
+          "pick up stainless steel bowl",
+          1
+        ]
+      ]
+    },
+    {
+      "task": "pick up the black bowl next to the plate and place it on the plate",
+      "successes": 0,
+      "episodes": 3,
+      "videos": [
+        "rollout_pick_up_the_black_bowl_next_to_the_plate_and_place_it_on_the_plate_ep000_failure.mp4",
+        "rollout_pick_up_the_black_bowl_next_to_the_plate_and_place_it_on_the_plate_ep001_failure.mp4",
+        "rollout_pick_up_the_black_bowl_next_to_the_plate_and_place_it_on_the_plate_ep002_failure.mp4"
+      ],
+      "replanning_chunks": 132,
+      "first_eight_generated_texts": [
+        "pick up black bowl",
+        "pick up bowl",
+        "pick up bowl",
+        "pick up bowl",
+        "pick up bowl",
+        "pick up bowl",
+        "pick up bowl",
+        "pick up the black bowl"
+      ],
+      "most_common_generated_texts": [
+        [
+          "pick up bowl",
+          90
+        ],
+        [
+          "pick up black bowl",
+          21
+        ],
+        [
+          "pick up the large plate",
+          6
+        ],
+        [
+          "pick up the black bowl",
+          5
+        ],
+        [
+          "The image shows a total of 5 objects. The most prominent object is a",
+          3
+        ],
+        [
+          "pick up the large bowl",
+          3
+        ]
+      ]
+    },
+    {
+      "task": "pick up the black bowl next to the ramekin and place it on the plate",
+      "successes": 0,
+      "episodes": 3,
+      "videos": [
+        "rollout_pick_up_the_black_bowl_next_to_the_ramekin_and_place_it_on_the_plate_ep000_failure.mp4",
+        "rollout_pick_up_the_black_bowl_next_to_the_ramekin_and_place_it_on_the_plate_ep001_failure.mp4",
+        "rollout_pick_up_the_black_bowl_next_to_the_ramekin_and_place_it_on_the_plate_ep002_failure.mp4"
+      ],
+      "replanning_chunks": 132,
+      "first_eight_generated_texts": [
+        "pick up large plate",
+        "pick up large plate",
+        "pick up the black bowl",
+        "pick up large plate",
+        "pick up large plate",
+        "pick up bowl",
+        "pick up black bowl",
+        "pick up large plate"
+      ],
+      "most_common_generated_texts": [
+        [
+          "pick up the black bowl",
+          68
+        ],
+        [
+          "pick up bowl",
+          32
+        ],
+        [
+          "pick up black bowl",
+          13
+        ],
+        [
+          "pick up large plate",
+          10
+        ],
+        [
+          "pick up the large plate",
+          4
+        ],
+        [
+          "pick up small plate",
+          3
+        ]
+      ]
+    },
+    {
+      "task": "pick up the black bowl on the cookie box and place it on the plate",
+      "successes": 0,
+      "episodes": 3,
+      "videos": [
+        "rollout_pick_up_the_black_bowl_on_the_cookie_box_and_place_it_on_the_plate_ep000_failure.mp4",
+        "rollout_pick_up_the_black_bowl_on_the_cookie_box_and_place_it_on_the_plate_ep001_failure.mp4",
+        "rollout_pick_up_the_black_bowl_on_the_cookie_box_and_place_it_on_the_plate_ep002_failure.mp4"
+      ],
+      "replanning_chunks": 132,
+      "first_eight_generated_texts": [
+        "pick up the blue plate",
+        "pick up the black bowl",
+        "pick up the black bowl",
+        "pick up the blue plate",
+        "pick up the blue plate",
+        "pick up the blue plate",
+        "pick up the blue bowl",
+        "pick up the blue bowl"
+      ],
+      "most_common_generated_texts": [
+        [
+          "pick up the blue bowl",
+          54
+        ],
+        [
+          "pick up the black bowl",
+          53
+        ],
+        [
+          "pick up the blue plate",
+          22
+        ],
+        [
+          "pick up the large plate",
+          1
+        ],
+        [
+          "No movement",
+          1
+        ],
+        [
+          "NoAction",
+          1
+        ]
+      ]
+    },
+    {
+      "task": "pick up the black bowl on the ramekin and place it on the plate",
+      "successes": 0,
+      "episodes": 3,
+      "videos": [
+        "rollout_pick_up_the_black_bowl_on_the_ramekin_and_place_it_on_the_plate_ep000_failure.mp4",
+        "rollout_pick_up_the_black_bowl_on_the_ramekin_and_place_it_on_the_plate_ep001_failure.mp4",
+        "rollout_pick_up_the_black_bowl_on_the_ramekin_and_place_it_on_the_plate_ep002_failure.mp4"
+      ],
+      "replanning_chunks": 132,
+      "first_eight_generated_texts": [
+        "pick up bowl",
+        "No, not visible",
+        "pick up bowl",
+        "pick up the black bowl",
+        "no movement",
+        "pick up bowl",
+        "pick up bowl",
+        "pick up bowl"
+      ],
+      "most_common_generated_texts": [
+        [
+          "pick up bowl",
+          70
+        ],
+        [
+          "pick up the black bowl",
+          40
+        ],
+        [
+          "pick up black bowl",
+          8
+        ],
+        [
+          "No, there is no black bowl on the plate.",
+          4
+        ],
+        [
+          "No, there is no black bowl on the matcha dish in the image.",
+          2
+        ],
+        [
+          "No, not visible",
+          1
+        ]
+      ]
+    },
+    {
+      "task": "pick up the black bowl on the stove and place it on the plate",
+      "successes": 0,
+      "episodes": 3,
+      "videos": [
+        "rollout_pick_up_the_black_bowl_on_the_stove_and_place_it_on_the_plate_ep000_failure.mp4",
+        "rollout_pick_up_the_black_bowl_on_the_stove_and_place_it_on_the_plate_ep001_failure.mp4",
+        "rollout_pick_up_the_black_bowl_on_the_stove_and_place_it_on_the_plate_ep002_failure.mp4"
+      ],
+      "replanning_chunks": 132,
+      "first_eight_generated_texts": [
+        "pick up bowl",
+        "pick up bowl",
+        "pick up bowl",
+        "pick up bowl",
+        "pick up bowl",
+        "pick up bowl",
+        "pick up bowl",
+        "pick up bowl"
+      ],
+      "most_common_generated_texts": [
+        [
+          "pick up bowl",
+          76
+        ],
+        [
+          "pick up the black bowl",
+          27
+        ],
+        [
+          "pick up the blue plate",
+          22
+        ],
+        [
+          "pick up the blue bowl",
+          4
+        ],
+        [
+          "pick up stainless steel bowl",
+          1
+        ],
+        [
+          "pick up stainless steel plate",
+          1
+        ]
+      ]
+    },
+    {
+      "task": "pick up the black bowl on the wooden cabinet and place it on the plate",
+      "successes": 0,
+      "episodes": 3,
+      "videos": [
+        "rollout_pick_up_the_black_bowl_on_the_wooden_cabinet_and_place_it_on_the_plate_ep000_failure.mp4",
+        "rollout_pick_up_the_black_bowl_on_the_wooden_cabinet_and_place_it_on_the_plate_ep001_failure.mp4",
+        "rollout_pick_up_the_black_bowl_on_the_wooden_cabinet_and_place_it_on_the_plate_ep002_failure.mp4"
+      ],
+      "replanning_chunks": 132,
+      "first_eight_generated_texts": [
+        "pick up the black bowl",
+        "pick up the blue bowl",
+        "pick up the blue bowl",
+        "pick up bowl",
+        "pick up the blue bowl",
+        "pick up the blue bowl",
+        "pick up the black bowl",
+        "pick up the black bowl"
+      ],
+      "most_common_generated_texts": [
+        [
+          "pick up the black bowl",
+          56
+        ],
+        [
+          "pick up bowl",
+          38
+        ],
+        [
+          "pick up the blue bowl",
+          18
+        ],
+        [
+          "pick up the bowl",
+          9
+        ],
+        [
+          "pick up the blue plate",
+          4
+        ],
+        [
+          "pick up the large bowl",
+          3
+        ]
+      ]
+    }
+  ],
+  "success_fraction": 0.0
+}
