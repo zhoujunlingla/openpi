@@ -1,28 +1,60 @@
 # π0.5 原生 VLM 文本解码：证据和恢复路线
 
-## 当前判断
+## 为什么 Action Expert 不能直接输出文本
 
-当前 JAX 实现已经从 π0.5 的 Gemma 隐状态调用原有的词表投影，再用 openpi 自带的 SentencePiece tokenizer 把 token ID 还原成文字。这一步确实完成了**解码**，但公开 `pi05_libero` 权重在已测 LIBERO 首帧上没有产生可读的子任务描述。输出以词表末端约 255k 的罕见 Unicode token 为主；换成官方 `caption en\n` 提示后仍不可读。首个异常 token 出现在后续 KV 缓存更新之前，因此后续缓存压缩不能解释首个异常 token。
+`pi05_libero` 的 Action Expert 使用流匹配：`action_out_proj` 把隐藏向量映射成每步 32 个连续数值，经过多步积分得到 `(10, 32)` 动作块；LIBERO 输出变换只取每步前 7 维。它没有从动作隐藏向量映射到词表的文本输出头，也不按文本 token 训练。直接把动作数值送入 SentencePiece、对动作向量取 `argmax`，都不能得到模型生成的任务描述。π0-FAST 虽然预测离散 token，但这些 token 编码动作，属于另一种模型及训练目标。
 
-这些结果只证明“当前权重、输入和解码实现的组合没有生成可用文本”，不能单凭乱码断定公开权重从未学过语言，也不能断定权重损坏。公开 `Pi0.compute_loss` 只返回动作流匹配误差，没有下一词预测交叉熵；公开训练代码没有提供让这份权重学会机器人子任务描述的监督流程。
+文本出口是另一条路径：当前 JAX 探针从 π0.5 的 Gemma 隐状态调用已有的词表投影，再用 openpi 自带的 SentencePiece tokenizer 把 token ID 还原成文字。这一步确实完成了**解码**；问题是 `pi05_libero` 权重没有在已测 LIBERO 首帧生成可读文本。
 
-相关实现：`src/openpi/models/gemma.py` 的 `text_debug_decode` 调用已有 `embedder.decode`；`src/openpi/policies/pi05_text_debug.py` 的 `TextDecoder.generate` 执行自回归生成；`src/openpi/models/pi0.py` 的 `compute_loss` 计算动作损失。原始 token、数值对照和提示见 `docs/pi05_text_audit_zh.md` 及实验报告。
+代码依据：`src/openpi/models/pi0.py` 的 `action_out_proj`、`sample_actions` 与 `compute_loss`；`src/openpi/models/gemma.py` 的 `text_debug_decode`；`src/openpi/policies/pi05_text_debug.py` 的 `TextDecoder.generate`。公开 `Pi0.compute_loss` 只返回动作流匹配误差，没有下一词预测交叉熵；这不能反推出未公开的全部训练历史。
 
-## 先排除实现与输入问题
+## 同一画面、两份权重的实测结果
 
-在**同一张图、同一份 checkpoint** 上依次做以下实验，每项同时保存原始 token ID、top-k logits、首 token 概率、EOS、提示、图像预处理摘要和动作 `plan_id`：
+使用 LIBERO Spatial 第一个任务的同一初始观测、同一 `pi05_libero` 模型配置、同一 tokenizer、同一解码代码和相同的 LIBERO 归一化统计，分别加载 `pi05_base` 与 `pi05_libero`：
 
-1. 核对 checkpoint 配置、SentencePiece 词表大小和嵌入矩阵行数；用权重加载日志检查是否有缺失或随机初始化的语言层。不要只根据 `decode()` 返回 Unicode 就判定模型会说话。
-2. 分别测试官方 `caption en\n`、`answer en what is in the image?\n` 和机器人子任务提示。PaliGemma 要求图像 token 在文本提示之前；当前 `embed_prefix` 满足这一顺序，但提示任务分布仍可能不同。已有 `caption en\n` 失败，需要保留为对照而非重复声称它能修复问题。
-3. 在不改变文字提示的情况下比较真实图像、遮蔽图像和另一张图像的首 token 分布。只有输出随图像合理改变，才能说生成过程利用了视觉信息；输出不变也可能来自图像预处理或注意力实现问题。
-4. 用完整序列重算与 KV 缓存解码比较同一段人为指定的后续 token 历史；重点看首 token 和分布差异，而不是只看最终字符串。当前报告首 token 的 top-1 有轻微差异，但两条路径都偏向罕见 token，尚不足以把乱码归因于缓存。
-5. 对一条合理子任务和一条乱码序列做 teacher forcing，比较逐 token 对数概率；同时检查相同文本在官方 PaliGemma 参考实现中的 token ID 是否一致。该实验只能判断当前模型偏好，不能把人为输入文本算作模型生成。
+| 提示 | `pi05_base` | `pi05_libero` |
+| --- | --- | --- |
+| `caption en\n` | 可读描述，以 `The image shows a collection of objects...` 开头 | 16 个以词表末端约 255k 为主的罕见字符 |
+| `answer en what objects are visible in the image?\n` | 可读回答，以 `In the image, there are several objects...` 开头 | 罕见字符，随后 EOS |
+| `Task: ...\nSubtask:\n` | `pick up small plate` | 罕见字符，无 EOS |
 
-如果 1–5 找到加载、映射、注意力或图像预处理错误，先修复并复跑相同场景。若标准提示和参考数值路径都正确，但生成仍不可读，应停止靠过滤罕见 token 或更换解码算法“修”输出：这些操作会掩盖模型分布，不能凭空创建子任务语义。
+基座的 `pick up small plate` **没有准确描述原任务中的黑碗**；“可读”不能当作“子任务正确”。但基座能用相同代码输出英语，使“词表映射或解码算法普遍坏了”不再是主要解释。已有单权重审计还表明，`pi05_libero` 的首个异常 token 出现在任何后续 KV 缓存更新之前；后续缓存压缩不能解释首 token。
+
+权重对照进一步显示：乱码首 token ID `255684` 的词嵌入行在两份权重中完全相同；抽样的词表末端 1000 行相对 RMS 变化约 `0.000065`，Gemma 最终归一化约 `0.000138`。Gemma 第 0 层注意力 Q 权重变化约 `0.198`，第 0 层 MLP 抽样变化约 `0.147`。这些数值支持“LIBERO 权重中的 Gemma 内部表示发生变化，导致原有词表投影不再给出可读文字”；它们没有证明是哪个单独参数造成了乱码。公开 `pi05_libero` 训练配置从 `pi05_base` 加载权重，随后采用仅有动作损失的训练代码，因此动作微调导致语言生成退化是目前最有证据的解释。
+
+原始结果：[文本对照](experiments/pi05_base_vs_libero_text_compare.json)、[参数对照](experiments/pi05_base_vs_libero_weight_compare.json)、[先前缓存审计](pi05_text_audit_zh.md)。
+
+## 复跑对照
+
+在 `L20_node2` 的仓库根目录，先用 LIBERO 环境保存一次观测，再用 JAX 环境比较两份已下载权重。三个脚本均不运行 Action Expert 文本解码，也不会修改 checkpoint。
+
+```bash
+LIBERO_CONFIG_PATH="$PWD/data/libero/pi05_debug_config" MUJOCO_GL=egl PYOPENGL_PLATFORM=egl \
+PYTHONPATH="$PWD/packages/openpi-client/src:$PWD/examples/libero:$PWD/third_party/libero" \
+/home/csuvla/fhy/pi05-hindsight/openpi/.venv/bin/python \
+  scripts/debug_pi05_save_libero_frame.py data/libero/pi05_first_frame_compare.npz
+
+CUDA_VISIBLE_DEVICES=0 XLA_PYTHON_CLIENT_PREALLOCATE=false \
+PYTHONPATH="$PWD/src:$PWD/packages/openpi-client/src" \
+/home/csuvla/ysc/workspace/pi0_clean/.venv/bin/python \
+  scripts/debug_pi05_compare_checkpoints.py \
+  --frame data/libero/pi05_first_frame_compare.npz \
+  --checkpoint-root /home/csuvla/.cache/openpi/openpi-assets/checkpoints \
+  --output data/libero/pi05_base_vs_libero_text_compare.json
+
+CUDA_VISIBLE_DEVICES=0 XLA_PYTHON_CLIENT_PREALLOCATE=false \
+PYTHONPATH="$PWD/src:$PWD/packages/openpi-client/src" \
+/home/csuvla/ysc/workspace/pi0_clean/.venv/bin/python \
+  scripts/debug_pi05_compare_weights.py \
+  --checkpoint-root /home/csuvla/.cache/openpi/openpi-assets/checkpoints \
+  --output data/libero/pi05_base_vs_libero_weight_compare.json
+```
+
+如果需要继续定位，下一组对照应比较同一提示下不同图像的首 token 分布、逐层 Gemma 隐状态差异，以及合理子任务和乱码的 teacher-forced 对数概率。不要用强制 ASCII 或过滤词表末端 token，把其他 token 的输出冒充为模型恢复的任务描述。
 
 ## 两条获得可读文字的路线
 
-**独立模型路线（现有代码）：**在每个动作块重新规划前，用独立 PaLI-Gemma mix 权重读取当前图像和原任务并生成文字。`observe` 模式把文字展示、保存并供人工与动作轨迹核对，动作仍由 π0.5 根据原任务生成；两者不构成同一模型内部的因果解释。`condition` 模式才把文字传给动作策略，必须验证阶段描述准确，并验证动作策略接受这种短指令。PaLI-Gemma mix 擅长图像问答/描述，并未因此自动学会 LIBERO 的多阶段机器人规划；单帧图像可能不足以判断“下一步”，需要历史帧或任务阶段信息。运行方式见 `docs/pi05_external_paligemma_zh.md`。
+**独立模型路线（现有代码）：**在每个动作块重新规划前，用独立 PaLI-Gemma mix 权重读取当前图像和原任务并生成文字。`observe` 模式把文字展示、保存并供人工与动作轨迹核对，动作仍由 π0.5 根据原任务生成；两者不构成同一模型内部的因果解释。`condition` 模式才把文字传给动作策略，必须验证阶段描述准确，并验证动作策略接受这种短指令。PaLI-Gemma mix 擅长图像问答/描述，并未因此自动学会 LIBERO 的多阶段机器人规划；单帧图像可能不足以判断“下一步”，需要历史帧或任务阶段信息。运行方式见 `docs/pi05_external_paligemma_zh.md`。已经下载的 `pi05_base` 也能充当单独的可读文字探针，但这次生成的子任务与原任务不符，不能直接作为动作条件或准确的任务说明。
 
 **同一 π0.5 权重路线（需训练）：**收集 `(图像/状态, 原任务, 当前子任务, 后续动作)` 样本，先用文本 token 的下一词交叉熵训练 Gemma 文本生成路径，再用保留的动作损失与验证集确认动作质量。可以把文本训练放在仅生成文字时启用的 LoRA adapter，动作推理时关闭它，以免修改原动作网络输入分布；这时文本和动作共享原始骨干，但仍需实测生成子任务与动作是否相符。若目标是让生成子任务**控制**动作，则还须在相同短指令分布上训练或验证动作策略，不能仅把字幕换成动作输入。先做单任务过拟合、图像打乱对照，再做未见场景的文字与动作匹配评估。
 

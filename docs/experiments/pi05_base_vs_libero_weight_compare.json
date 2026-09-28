@@ -1,0 +1,92 @@
+{
+  "embedding_ordinary_rows_0_8192": {
+    "shape": [
+      8192,
+      2048
+    ],
+    "base_rms": 0.1384502649307251,
+    "tuned_rms": 0.13845138251781464,
+    "relative_rms_change": 0.00231274776160717,
+    "exact_equal_fraction": 0.9952296614646912
+  },
+  "embedding_rare_rows_255000_256000": {
+    "shape": [
+      1000,
+      2048
+    ],
+    "base_rms": 0.21216996014118195,
+    "tuned_rms": 0.21217012405395508,
+    "relative_rms_change": 6.48050699965097e-05,
+    "exact_equal_fraction": 0.999811589717865
+  },
+  "embedding_observed_token_255684": {
+    "shape": [
+      2048
+    ],
+    "base_rms": 0.20460735261440277,
+    "tuned_rms": 0.20460735261440277,
+    "relative_rms_change": 0.0,
+    "exact_equal_fraction": 1.0
+  },
+  "gemma_final_norm": {
+    "shape": [
+      2048
+    ],
+    "base_rms": 0.7011151313781738,
+    "tuned_rms": 0.7011178731918335,
+    "relative_rms_change": 0.00013764508184976876,
+    "exact_equal_fraction": 0.9990234375
+  },
+  "gemma_attention_q_layer0": {
+    "shape": [
+      8,
+      2048,
+      256
+    ],
+    "base_rms": 0.026305528357625008,
+    "tuned_rms": 0.026844341307878494,
+    "relative_rms_change": 0.19828729331493378,
+    "exact_equal_fraction": 0.016746997833251953
+  },
+  "gemma_attention_q_layer17": {
+    "shape": [
+      8,
+      2048,
+      256
+    ],
+    "base_rms": 0.028425877913832664,
+    "tuned_rms": 0.028425902128219604,
+    "relative_rms_change": 7.000619370955974e-05,
+    "exact_equal_fraction": 0.9998183250427246
+  },
+  "gemma_mlp_layer0_first256": {
+    "shape": [
+      2,
+      2048,
+      256
+    ],
+    "base_rms": 0.03443631902337074,
+    "tuned_rms": 0.03492235764861107,
+    "relative_rms_change": 0.14702968299388885,
+    "exact_equal_fraction": 0.013239860534667969
+  },
+  "vision_encoder_norm": {
+    "shape": [
+      1152
+    ],
+    "base_rms": 1.5437265634536743,
+    "tuned_rms": 1.550801157951355,
+    "relative_rms_change": 0.006122187245637178,
+    "exact_equal_fraction": 0.2907986044883728
+  },
+  "action_out_proj_kernel": {
+    "shape": [
+      1024,
+      32
+    ],
+    "base_rms": 0.019353613257408142,
+    "tuned_rms": 0.01910260133445263,
+    "relative_rms_change": 0.19466687738895416,
+    "exact_equal_fraction": 0.0050048828125
+  }
+}

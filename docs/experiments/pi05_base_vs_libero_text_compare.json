@@ -1,0 +1,150 @@
+{
+  "purpose": "same-frame base-vs-LIBERO text probe; no action decoder generates text",
+  "frame_sha256": "2527af8d5fa09247dd84d8b198054623fe9b907ac70eb249d29f742ec1eb6813",
+  "prompt": "pick up the black bowl between the plate and the ramekin and place it on the plate",
+  "config": "Pi0Config(action_dim=32, action_horizon=10, max_token_len=200, dtype='bfloat16', paligemma_variant='gemma_2b', action_expert_variant='gemma_300m', pi05=True, discrete_state_input=False, pytorch_compile_mode='max-autotune')",
+  "results": {
+    "pi05_base": {
+      "official_caption": {
+        "query_template": "caption en",
+        "raw_ids": [
+          651,
+          2416,
+          4918,
+          476,
+          5488,
+          576,
+          9113,
+          20677,
+          611,
+          476,
+          11769,
+          3037,
+          235265,
+          714,
+          18800,
+          6566
+        ],
+        "text_ascii": "'The image shows a collection of objects arranged on a wooden table. The arrangement includes'",
+        "eos_seen": false,
+        "nonlanguage_ids": [],
+        "unmapped_ids": []
+      },
+      "official_answer": {
+        "query_template": "answer en what objects are visible in the image?",
+        "raw_ids": [
+          886,
+          573,
+          2416,
+          235269,
+          1104,
+          708,
+          3757,
+          9113,
+          12918,
+          235269,
+          3359,
+          476,
+          8423,
+          7190,
+          235269,
+          476
+        ],
+        "text_ascii": "'In the image, there are several objects visible, including a coffee cup, a'",
+        "eos_seen": false,
+        "nonlanguage_ids": [],
+        "unmapped_ids": []
+      },
+      "subtask": {
+        "query_template": "Task: {task}\nSubtask:",
+        "raw_ids": [
+          18075,
+          908,
+          2301,
+          8811,
+          1
+        ],
+        "text_ascii": "'pick up small plate'",
+        "eos_seen": true,
+        "nonlanguage_ids": [],
+        "unmapped_ids": []
+      }
+    },
+    "pi05_libero": {
+      "official_caption": {
+        "query_template": "caption en",
+        "raw_ids": [
+          255700,
+          255693,
+          255669,
+          255692,
+          255406,
+          255624,
+          255709,
+          255644,
+          255691,
+          255647,
+          255691,
+          255720,
+          255691,
+          255862,
+          255691,
+          255718
+        ],
+        "text_ascii": "'\\u28ba\\u228f\\u0506\\u2210\\u1b5d\\uaa91\\u56f7\\ue814\\u1f68\\uf35e\\u1f68\\u6506\\u1f68\\u28dc\\u1f68\\u625e'",
+        "eos_seen": false,
+        "nonlanguage_ids": [
+          255644,
+          255647
+        ],
+        "unmapped_ids": []
+      },
+      "official_answer": {
+        "query_template": "answer en what objects are visible in the image?",
+        "raw_ids": [
+          255636,
+          255692,
+          255660,
+          255496,
+          254799,
+          255701,
+          255654,
+          255708,
+          255710,
+          1
+        ],
+        "text_ascii": "'\\ud439\\u2210\\U0001fac5\\ud43c\\ufe9c\\u2919\\U0001d5a8\\u56ad\\u581f'",
+        "eos_seen": true,
+        "nonlanguage_ids": [],
+        "unmapped_ids": []
+      },
+      "subtask": {
+        "query_template": "Task: {task}\nSubtask:",
+        "raw_ids": [
+          255684,
+          255406,
+          255511,
+          255686,
+          255609,
+          255684,
+          255331,
+          255659,
+          255575,
+          255593,
+          255689,
+          255618,
+          255694,
+          255204,
+          255861,
+          255694
+        ],
+        "text_ascii": "'\\u1511\\u1b5d\\ue60e\\u1cdd\\u8e2f\\u1511\\u8220\\U0001fac3\\u2ec4\\u6b7a\\u1e80\\u9490\\u2340\\u8711\\u28ab\\u2340'",
+        "eos_seen": false,
+        "nonlanguage_ids": [
+          255511
+        ],
+        "unmapped_ids": []
+      }
+    }
+  }
+}
