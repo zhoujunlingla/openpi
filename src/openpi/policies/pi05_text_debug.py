@@ -1,8 +1,9 @@
-"""Experimental SAME-checkpoint pi05 text probe and two-pass action wrapper.
+"""Experimental pi05 text probe and two-pass action wrapper.
 
 Not an official high-level pi05 implementation and not a guarantee that a released
 checkpoint retains useful language generation. Supported backend: openpi JAX.
 Run install.py first to expose Gemma's existing tied vocabulary projection.
+An optional second pi05 policy can consume the text as an action prompt.
 """
 from __future__ import annotations
 
@@ -118,6 +119,8 @@ class Pi05TextDebugPolicy(base_policy.BasePolicy):
         max_tokens: int = 24,
         prompt_template: str = "Task: {task}\nSubtask:",
         log_jsonl: str | None = None,
+        action_policy=None,
+        text_source: str = "same_pi05_checkpoint_vlm_probe",
     ):
         if mode not in {"observe", "condition"}:
             raise ValueError("mode must be observe or condition")
@@ -125,7 +128,12 @@ class Pi05TextDebugPolicy(base_policy.BasePolicy):
             raise ValueError("JAX checkpoints only; PyTorch needs a separate implementation")
         if not getattr(policy._model, "pi05", False):
             raise ValueError("Use config pi05_libero and a compatible pi05 checkpoint")
+        action_policy = action_policy or policy
+        if getattr(action_policy, "_is_pytorch_model", True) or not getattr(action_policy._model, "pi05", False):
+            raise ValueError("Action policy must also be a JAX pi05 policy")
         self._policy = policy
+        self._action_policy = action_policy
+        self._text_source = text_source
         self._mode = mode
         self._template = prompt_template
         self._max_tokens = max_tokens
@@ -149,10 +157,10 @@ class Pi05TextDebugPolicy(base_policy.BasePolicy):
     @property
     def metadata(self):
         return {
-            **self._policy.metadata,
+            **self._action_policy.metadata,
             "text_debug": {
                 "mode": self._mode,
-                "source": "same_pi05_checkpoint_vlm_probe",
+                "source": self._text_source,
                 "max_tokens": self._max_tokens,
                 "prompt_template": self._template,
                 "two_phase_available": True,
@@ -233,7 +241,7 @@ class Pi05TextDebugPolicy(base_policy.BasePolicy):
             "text_generation_ms": (time.perf_counter() - start) * 1000,
             "high_level_query": query,
             "text_mode": self._mode,
-            "text_source": "same_pi05_checkpoint_vlm_probe",
+            "text_source": self._text_source,
         }
         print(f"[VLM BEFORE ACTION] mode={self._mode} id={result['plan_id']} text={text!r}", flush=True)
         print(f"[VLM RAW IDS] {ids}", flush=True)
@@ -253,7 +261,7 @@ class Pi05TextDebugPolicy(base_policy.BasePolicy):
         action_obs["prompt"] = action_prompt
         print(f"[ACTION START] conditioned_on={action_prompt!r}", flush=True)
         start = time.perf_counter()
-        result = self._policy.infer(action_obs, noise=noise)
+        result = self._action_policy.infer(action_obs, noise=noise)
         # Add strings ONLY AFTER the existing numpy/JAX/output-transform pipeline.
         result.update(plan)
         result["action_prompt"] = action_prompt
@@ -288,3 +296,5 @@ class Pi05TextDebugPolicy(base_policy.BasePolicy):
     def reset(self):
         self._pending.clear()
         self._policy.reset()
+        if self._action_policy is not self._policy:
+            self._action_policy.reset()
