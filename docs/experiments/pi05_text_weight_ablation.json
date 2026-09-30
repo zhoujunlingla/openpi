@@ -1,0 +1,2040 @@
+{
+  "purpose": "same-frame text-only controlled in-memory parameter interventions",
+  "frame_sha256": "2527af8d5fa09247dd84d8b198054623fe9b907ac70eb249d29f742ec1eb6813",
+  "git_head": "a9846efb8cba555a224aff3db943a7427e9d3ce5",
+  "base_checkpoint": "/home/csuvla/.cache/openpi/openpi-assets/checkpoints/pi05_base",
+  "libero_checkpoint": "/home/csuvla/.cache/openpi/openpi-assets/checkpoints/pi05_libero",
+  "jax_version": "0.5.0",
+  "devices": [
+    "TFRT_CPU_0"
+  ],
+  "config": "Pi0Config(action_dim=32, action_horizon=10, max_token_len=200, dtype='bfloat16', paligemma_variant='gemma_2b', action_expert_variant='gemma_300m', pi05=True, discrete_state_input=False, pytorch_compile_mode='max-autotune')",
+  "max_tokens": 8,
+  "task_prompt": "pick up the black bowl between the plate and the ramekin and place it on the plate",
+  "actions_executed": false,
+  "notes": [
+    "Id>=250000 is an explicit numerical range, not a language quality classifier.",
+    "All results use the same image preprocessing, tokenizer and decoder.",
+    "Base readout restoration also restores the tied input embedding.",
+    "Layer drift is a deterministic sample of up to 16384 values per tensor per layer."
+  ],
+  "layer_drift": {
+    "PaliGemma/llm/layers/attn/attn_vec_einsum/w": [
+      {
+        "layer": 0,
+        "sample_size": 16384,
+        "relative_rms_change": 0.16680922243807705,
+        "bf16_equal_fraction": 0.00982666015625
+      },
+      {
+        "layer": 1,
+        "sample_size": 16384,
+        "relative_rms_change": 0.16271342977667916,
+        "bf16_equal_fraction": 0.01068115234375
+      },
+      {
+        "layer": 2,
+        "sample_size": 16384,
+        "relative_rms_change": 0.17344737991848388,
+        "bf16_equal_fraction": 0.00909423828125
+      },
+      {
+        "layer": 3,
+        "sample_size": 16384,
+        "relative_rms_change": 0.16891757440932462,
+        "bf16_equal_fraction": 0.00982666015625
+      },
+      {
+        "layer": 4,
+        "sample_size": 16384,
+        "relative_rms_change": 0.1690203107249115,
+        "bf16_equal_fraction": 0.010498046875
+      },
+      {
+        "layer": 5,
+        "sample_size": 16384,
+        "relative_rms_change": 0.1763202170034219,
+        "bf16_equal_fraction": 0.0111083984375
+      },
+      {
+        "layer": 6,
+        "sample_size": 16384,
+        "relative_rms_change": 0.16503546647536996,
+        "bf16_equal_fraction": 0.010498046875
+      },
+      {
+        "layer": 7,
+        "sample_size": 16384,
+        "relative_rms_change": 0.17814986582536044,
+        "bf16_equal_fraction": 0.0096435546875
+      },
+      {
+        "layer": 8,
+        "sample_size": 16384,
+        "relative_rms_change": 0.1745886286826032,
+        "bf16_equal_fraction": 0.010986328125
+      },
+      {
+        "layer": 9,
+        "sample_size": 16384,
+        "relative_rms_change": 0.17446358583981278,
+        "bf16_equal_fraction": 0.01019287109375
+      },
+      {
+        "layer": 10,
+        "sample_size": 16384,
+        "relative_rms_change": 0.1745706743762183,
+        "bf16_equal_fraction": 0.0098876953125
+      },
+      {
+        "layer": 11,
+        "sample_size": 16384,
+        "relative_rms_change": 0.17440682671041152,
+        "bf16_equal_fraction": 0.0093994140625
+      },
+      {
+        "layer": 12,
+        "sample_size": 16384,
+        "relative_rms_change": 0.15895277095247276,
+        "bf16_equal_fraction": 0.01171875
+      },
+      {
+        "layer": 13,
+        "sample_size": 16384,
+        "relative_rms_change": 0.16201316575269217,
+        "bf16_equal_fraction": 0.0091552734375
+      },
+      {
+        "layer": 14,
+        "sample_size": 16384,
+        "relative_rms_change": 0.14525574844532513,
+        "bf16_equal_fraction": 0.01171875
+      },
+      {
+        "layer": 15,
+        "sample_size": 16384,
+        "relative_rms_change": 0.13568355338327176,
+        "bf16_equal_fraction": 0.0115966796875
+      },
+      {
+        "layer": 16,
+        "sample_size": 16384,
+        "relative_rms_change": 0.08152115631910774,
+        "bf16_equal_fraction": 0.020263671875
+      },
+      {
+        "layer": 17,
+        "sample_size": 16384,
+        "relative_rms_change": 9.380822260153621e-05,
+        "bf16_equal_fraction": 0.9993896484375
+      }
+    ],
+    "PaliGemma/llm/layers/attn/kv_einsum/w": [
+      {
+        "layer": 0,
+        "sample_size": 16384,
+        "relative_rms_change": 0.16597896149027444,
+        "bf16_equal_fraction": 0.0142822265625
+      },
+      {
+        "layer": 1,
+        "sample_size": 16384,
+        "relative_rms_change": 0.150018423843373,
+        "bf16_equal_fraction": 0.01214599609375
+      },
+      {
+        "layer": 2,
+        "sample_size": 16384,
+        "relative_rms_change": 0.15239468285154065,
+        "bf16_equal_fraction": 0.0123291015625
+      },
+      {
+        "layer": 3,
+        "sample_size": 16384,
+        "relative_rms_change": 0.1651334233377278,
+        "bf16_equal_fraction": 0.01092529296875
+      },
+      {
+        "layer": 4,
+        "sample_size": 16384,
+        "relative_rms_change": 0.15682259412693583,
+        "bf16_equal_fraction": 0.01055908203125
+      },
+      {
+        "layer": 5,
+        "sample_size": 16384,
+        "relative_rms_change": 0.16716052810077703,
+        "bf16_equal_fraction": 0.01141357421875
+      },
+      {
+        "layer": 6,
+        "sample_size": 16384,
+        "relative_rms_change": 0.1720121159150683,
+        "bf16_equal_fraction": 0.00982666015625
+      },
+      {
+        "layer": 7,
+        "sample_size": 16384,
+        "relative_rms_change": 0.16520751985714466,
+        "bf16_equal_fraction": 0.0107421875
+      },
+      {
+        "layer": 8,
+        "sample_size": 16384,
+        "relative_rms_change": 0.18023261795303958,
+        "bf16_equal_fraction": 0.00958251953125
+      },
+      {
+        "layer": 9,
+        "sample_size": 16384,
+        "relative_rms_change": 0.1704744114271563,
+        "bf16_equal_fraction": 0.01019287109375
+      },
+      {
+        "layer": 10,
+        "sample_size": 16384,
+        "relative_rms_change": 0.17738610733246374,
+        "bf16_equal_fraction": 0.00946044921875
+      },
+      {
+        "layer": 11,
+        "sample_size": 16384,
+        "relative_rms_change": 0.1871818451468113,
+        "bf16_equal_fraction": 0.009521484375
+      },
+      {
+        "layer": 12,
+        "sample_size": 16384,
+        "relative_rms_change": 0.1560551453461953,
+        "bf16_equal_fraction": 0.01190185546875
+      },
+      {
+        "layer": 13,
+        "sample_size": 16384,
+        "relative_rms_change": 0.15892817410522128,
+        "bf16_equal_fraction": 0.010009765625
+      },
+      {
+        "layer": 14,
+        "sample_size": 16384,
+        "relative_rms_change": 0.1407506253471946,
+        "bf16_equal_fraction": 0.01104736328125
+      },
+      {
+        "layer": 15,
+        "sample_size": 16384,
+        "relative_rms_change": 0.12006722528238188,
+        "bf16_equal_fraction": 0.0133056640625
+      },
+      {
+        "layer": 16,
+        "sample_size": 16384,
+        "relative_rms_change": 0.14260936736157503,
+        "bf16_equal_fraction": 0.01116943359375
+      },
+      {
+        "layer": 17,
+        "sample_size": 16384,
+        "relative_rms_change": 0.16267886868706408,
+        "bf16_equal_fraction": 0.0123291015625
+      }
+    ],
+    "PaliGemma/llm/layers/attn/q_einsum/w": [
+      {
+        "layer": 0,
+        "sample_size": 16384,
+        "relative_rms_change": 0.19841581780320222,
+        "bf16_equal_fraction": 0.01776123046875
+      },
+      {
+        "layer": 1,
+        "sample_size": 16384,
+        "relative_rms_change": 0.15237752440582525,
+        "bf16_equal_fraction": 0.01220703125
+      },
+      {
+        "layer": 2,
+        "sample_size": 16384,
+        "relative_rms_change": 0.17220388050380833,
+        "bf16_equal_fraction": 0.01177978515625
+      },
+      {
+        "layer": 3,
+        "sample_size": 16384,
+        "relative_rms_change": 0.1772179605765505,
+        "bf16_equal_fraction": 0.0093994140625
+      },
+      {
+        "layer": 4,
+        "sample_size": 16384,
+        "relative_rms_change": 0.15024164411878718,
+        "bf16_equal_fraction": 0.01141357421875
+      },
+      {
+        "layer": 5,
+        "sample_size": 16384,
+        "relative_rms_change": 0.18893975629176676,
+        "bf16_equal_fraction": 0.00927734375
+      },
+      {
+        "layer": 6,
+        "sample_size": 16384,
+        "relative_rms_change": 0.17820787222111562,
+        "bf16_equal_fraction": 0.008544921875
+      },
+      {
+        "layer": 7,
+        "sample_size": 16384,
+        "relative_rms_change": 0.1678530660348424,
+        "bf16_equal_fraction": 0.0115966796875
+      },
+      {
+        "layer": 8,
+        "sample_size": 16384,
+        "relative_rms_change": 0.1876706446884464,
+        "bf16_equal_fraction": 0.0096435546875
+      },
+      {
+        "layer": 9,
+        "sample_size": 16384,
+        "relative_rms_change": 0.17742853881617038,
+        "bf16_equal_fraction": 0.01068115234375
+      },
+      {
+        "layer": 10,
+        "sample_size": 16384,
+        "relative_rms_change": 0.1685865914983846,
+        "bf16_equal_fraction": 0.0096435546875
+      },
+      {
+        "layer": 11,
+        "sample_size": 16384,
+        "relative_rms_change": 0.17504838158982539,
+        "bf16_equal_fraction": 0.0081787109375
+      },
+      {
+        "layer": 12,
+        "sample_size": 16384,
+        "relative_rms_change": 0.19327778219057035,
+        "bf16_equal_fraction": 0.00836181640625
+      },
+      {
+        "layer": 13,
+        "sample_size": 16384,
+        "relative_rms_change": 0.20178468911519562,
+        "bf16_equal_fraction": 0.0087890625
+      },
+      {
+        "layer": 14,
+        "sample_size": 16384,
+        "relative_rms_change": 0.20244680959756592,
+        "bf16_equal_fraction": 0.00958251953125
+      },
+      {
+        "layer": 15,
+        "sample_size": 16384,
+        "relative_rms_change": 0.212993787557045,
+        "bf16_equal_fraction": 0.008544921875
+      },
+      {
+        "layer": 16,
+        "sample_size": 16384,
+        "relative_rms_change": 0.12333471521599972,
+        "bf16_equal_fraction": 0.01544189453125
+      },
+      {
+        "layer": 17,
+        "sample_size": 16384,
+        "relative_rms_change": 4.757289296445124e-05,
+        "bf16_equal_fraction": 0.99981689453125
+      }
+    ],
+    "PaliGemma/llm/layers/mlp/gating_einsum": [
+      {
+        "layer": 0,
+        "sample_size": 16384,
+        "relative_rms_change": 0.147141482111228,
+        "bf16_equal_fraction": 0.01202392578125
+      },
+      {
+        "layer": 1,
+        "sample_size": 16384,
+        "relative_rms_change": 0.17379101535735872,
+        "bf16_equal_fraction": 0.01116943359375
+      },
+      {
+        "layer": 2,
+        "sample_size": 16384,
+        "relative_rms_change": 0.17386799907934122,
+        "bf16_equal_fraction": 0.01043701171875
+      },
+      {
+        "layer": 3,
+        "sample_size": 16384,
+        "relative_rms_change": 0.18487190713932372,
+        "bf16_equal_fraction": 0.0081787109375
+      },
+      {
+        "layer": 4,
+        "sample_size": 16384,
+        "relative_rms_change": 0.189073879080889,
+        "bf16_equal_fraction": 0.00885009765625
+      },
+      {
+        "layer": 5,
+        "sample_size": 16384,
+        "relative_rms_change": 0.1886130456008259,
+        "bf16_equal_fraction": 0.0111083984375
+      },
+      {
+        "layer": 6,
+        "sample_size": 16384,
+        "relative_rms_change": 0.1878994905096047,
+        "bf16_equal_fraction": 0.00970458984375
+      },
+      {
+        "layer": 7,
+        "sample_size": 16384,
+        "relative_rms_change": 0.1883240498549963,
+        "bf16_equal_fraction": 0.00921630859375
+      },
+      {
+        "layer": 8,
+        "sample_size": 16384,
+        "relative_rms_change": 0.1917898519781358,
+        "bf16_equal_fraction": 0.00860595703125
+      },
+      {
+        "layer": 9,
+        "sample_size": 16384,
+        "relative_rms_change": 0.19254031863076504,
+        "bf16_equal_fraction": 0.009765625
+      },
+      {
+        "layer": 10,
+        "sample_size": 16384,
+        "relative_rms_change": 0.19894834040294435,
+        "bf16_equal_fraction": 0.009765625
+      },
+      {
+        "layer": 11,
+        "sample_size": 16384,
+        "relative_rms_change": 0.19565686981887195,
+        "bf16_equal_fraction": 0.00933837890625
+      },
+      {
+        "layer": 12,
+        "sample_size": 16384,
+        "relative_rms_change": 0.1929255512003725,
+        "bf16_equal_fraction": 0.00848388671875
+      },
+      {
+        "layer": 13,
+        "sample_size": 16384,
+        "relative_rms_change": 0.19018495403036897,
+        "bf16_equal_fraction": 0.00909423828125
+      },
+      {
+        "layer": 14,
+        "sample_size": 16384,
+        "relative_rms_change": 0.17316790879206337,
+        "bf16_equal_fraction": 0.0106201171875
+      },
+      {
+        "layer": 15,
+        "sample_size": 16384,
+        "relative_rms_change": 0.17323496867998867,
+        "bf16_equal_fraction": 0.01055908203125
+      },
+      {
+        "layer": 16,
+        "sample_size": 16384,
+        "relative_rms_change": 0.1046059370472764,
+        "bf16_equal_fraction": 0.01837158203125
+      },
+      {
+        "layer": 17,
+        "sample_size": 16384,
+        "relative_rms_change": 1.6755286060137788e-05,
+        "bf16_equal_fraction": 0.9998779296875
+      }
+    ],
+    "PaliGemma/llm/layers/mlp/linear": [
+      {
+        "layer": 0,
+        "sample_size": 16384,
+        "relative_rms_change": 0.16884562571702866,
+        "bf16_equal_fraction": 0.013427734375
+      },
+      {
+        "layer": 1,
+        "sample_size": 16384,
+        "relative_rms_change": 0.18553658642469717,
+        "bf16_equal_fraction": 0.0096435546875
+      },
+      {
+        "layer": 2,
+        "sample_size": 16384,
+        "relative_rms_change": 0.18082252091056,
+        "bf16_equal_fraction": 0.0093994140625
+      },
+      {
+        "layer": 3,
+        "sample_size": 16384,
+        "relative_rms_change": 0.18174680379742908,
+        "bf16_equal_fraction": 0.0106201171875
+      },
+      {
+        "layer": 4,
+        "sample_size": 16384,
+        "relative_rms_change": 0.186237434269362,
+        "bf16_equal_fraction": 0.00970458984375
+      },
+      {
+        "layer": 5,
+        "sample_size": 16384,
+        "relative_rms_change": 0.18800547953921687,
+        "bf16_equal_fraction": 0.00933837890625
+      },
+      {
+        "layer": 6,
+        "sample_size": 16384,
+        "relative_rms_change": 0.18856320590126843,
+        "bf16_equal_fraction": 0.01104736328125
+      },
+      {
+        "layer": 7,
+        "sample_size": 16384,
+        "relative_rms_change": 0.18996390982169406,
+        "bf16_equal_fraction": 0.009521484375
+      },
+      {
+        "layer": 8,
+        "sample_size": 16384,
+        "relative_rms_change": 0.18852246158930197,
+        "bf16_equal_fraction": 0.00970458984375
+      },
+      {
+        "layer": 9,
+        "sample_size": 16384,
+        "relative_rms_change": 0.19154230935092462,
+        "bf16_equal_fraction": 0.0086669921875
+      },
+      {
+        "layer": 10,
+        "sample_size": 16384,
+        "relative_rms_change": 0.1952427897050871,
+        "bf16_equal_fraction": 0.01055908203125
+      },
+      {
+        "layer": 11,
+        "sample_size": 16384,
+        "relative_rms_change": 0.19341450661736795,
+        "bf16_equal_fraction": 0.00836181640625
+      },
+      {
+        "layer": 12,
+        "sample_size": 16384,
+        "relative_rms_change": 0.1866148477340166,
+        "bf16_equal_fraction": 0.00946044921875
+      },
+      {
+        "layer": 13,
+        "sample_size": 16384,
+        "relative_rms_change": 0.16645573142076517,
+        "bf16_equal_fraction": 0.01055908203125
+      },
+      {
+        "layer": 14,
+        "sample_size": 16384,
+        "relative_rms_change": 0.1638770510005627,
+        "bf16_equal_fraction": 0.01092529296875
+      },
+      {
+        "layer": 15,
+        "sample_size": 16384,
+        "relative_rms_change": 0.141907012780166,
+        "bf16_equal_fraction": 0.01312255859375
+      },
+      {
+        "layer": 16,
+        "sample_size": 16384,
+        "relative_rms_change": 0.08859141501986625,
+        "bf16_equal_fraction": 0.02276611328125
+      },
+      {
+        "layer": 17,
+        "sample_size": 16384,
+        "relative_rms_change": 6.0250318958672714e-05,
+        "bf16_equal_fraction": 0.999755859375
+      }
+    ],
+    "PaliGemma/llm/layers/pre_attention_norm/scale": [
+      {
+        "layer": 0,
+        "sample_size": 2048,
+        "relative_rms_change": 0.007261403216601576,
+        "bf16_equal_fraction": 0.240234375
+      },
+      {
+        "layer": 1,
+        "sample_size": 2048,
+        "relative_rms_change": 0.005027030393825668,
+        "bf16_equal_fraction": 0.1923828125
+      },
+      {
+        "layer": 2,
+        "sample_size": 2048,
+        "relative_rms_change": 0.006787189788400537,
+        "bf16_equal_fraction": 0.310546875
+      },
+      {
+        "layer": 3,
+        "sample_size": 2048,
+        "relative_rms_change": 0.0061924841251221364,
+        "bf16_equal_fraction": 0.283203125
+      },
+      {
+        "layer": 4,
+        "sample_size": 2048,
+        "relative_rms_change": 0.006382298344459695,
+        "bf16_equal_fraction": 0.2978515625
+      },
+      {
+        "layer": 5,
+        "sample_size": 2048,
+        "relative_rms_change": 0.005119026799272221,
+        "bf16_equal_fraction": 0.337890625
+      },
+      {
+        "layer": 6,
+        "sample_size": 2048,
+        "relative_rms_change": 0.0040751969810423685,
+        "bf16_equal_fraction": 0.43359375
+      },
+      {
+        "layer": 7,
+        "sample_size": 2048,
+        "relative_rms_change": 0.005200128052434807,
+        "bf16_equal_fraction": 0.3740234375
+      },
+      {
+        "layer": 8,
+        "sample_size": 2048,
+        "relative_rms_change": 0.004731521252447155,
+        "bf16_equal_fraction": 0.37890625
+      },
+      {
+        "layer": 9,
+        "sample_size": 2048,
+        "relative_rms_change": 0.004613493308404933,
+        "bf16_equal_fraction": 0.35205078125
+      },
+      {
+        "layer": 10,
+        "sample_size": 2048,
+        "relative_rms_change": 0.004864857613518889,
+        "bf16_equal_fraction": 0.3642578125
+      },
+      {
+        "layer": 11,
+        "sample_size": 2048,
+        "relative_rms_change": 0.004732075437821888,
+        "bf16_equal_fraction": 0.373046875
+      },
+      {
+        "layer": 12,
+        "sample_size": 2048,
+        "relative_rms_change": 0.005437640271190459,
+        "bf16_equal_fraction": 0.40087890625
+      },
+      {
+        "layer": 13,
+        "sample_size": 2048,
+        "relative_rms_change": 0.0067492465210385955,
+        "bf16_equal_fraction": 0.31884765625
+      },
+      {
+        "layer": 14,
+        "sample_size": 2048,
+        "relative_rms_change": 0.006632884163510777,
+        "bf16_equal_fraction": 0.19970703125
+      },
+      {
+        "layer": 15,
+        "sample_size": 2048,
+        "relative_rms_change": 0.006729329893582677,
+        "bf16_equal_fraction": 0.26123046875
+      },
+      {
+        "layer": 16,
+        "sample_size": 2048,
+        "relative_rms_change": 0.005233491488063412,
+        "bf16_equal_fraction": 0.39013671875
+      },
+      {
+        "layer": 17,
+        "sample_size": 2048,
+        "relative_rms_change": 0.007611390069152078,
+        "bf16_equal_fraction": 0.1337890625
+      }
+    ],
+    "PaliGemma/llm/layers/pre_ffw_norm/scale": [
+      {
+        "layer": 0,
+        "sample_size": 2048,
+        "relative_rms_change": 0.013322467510198223,
+        "bf16_equal_fraction": 0.05859375
+      },
+      {
+        "layer": 1,
+        "sample_size": 2048,
+        "relative_rms_change": 0.004799109708950468,
+        "bf16_equal_fraction": 0.30810546875
+      },
+      {
+        "layer": 2,
+        "sample_size": 2048,
+        "relative_rms_change": 0.006395550384999826,
+        "bf16_equal_fraction": 0.3486328125
+      },
+      {
+        "layer": 3,
+        "sample_size": 2048,
+        "relative_rms_change": 0.004789189689269667,
+        "bf16_equal_fraction": 0.4306640625
+      },
+      {
+        "layer": 4,
+        "sample_size": 2048,
+        "relative_rms_change": 0.004793364633224934,
+        "bf16_equal_fraction": 0.4091796875
+      },
+      {
+        "layer": 5,
+        "sample_size": 2048,
+        "relative_rms_change": 0.00437351943784208,
+        "bf16_equal_fraction": 0.41064453125
+      },
+      {
+        "layer": 6,
+        "sample_size": 2048,
+        "relative_rms_change": 0.00396645534556289,
+        "bf16_equal_fraction": 0.4677734375
+      },
+      {
+        "layer": 7,
+        "sample_size": 2048,
+        "relative_rms_change": 0.0043093419379365795,
+        "bf16_equal_fraction": 0.423828125
+      },
+      {
+        "layer": 8,
+        "sample_size": 2048,
+        "relative_rms_change": 0.004272216968371975,
+        "bf16_equal_fraction": 0.443359375
+      },
+      {
+        "layer": 9,
+        "sample_size": 2048,
+        "relative_rms_change": 0.004422703313708129,
+        "bf16_equal_fraction": 0.40625
+      },
+      {
+        "layer": 10,
+        "sample_size": 2048,
+        "relative_rms_change": 0.004852752500012651,
+        "bf16_equal_fraction": 0.4052734375
+      },
+      {
+        "layer": 11,
+        "sample_size": 2048,
+        "relative_rms_change": 0.005412993192051763,
+        "bf16_equal_fraction": 0.38330078125
+      },
+      {
+        "layer": 12,
+        "sample_size": 2048,
+        "relative_rms_change": 0.00518488841946012,
+        "bf16_equal_fraction": 0.388671875
+      },
+      {
+        "layer": 13,
+        "sample_size": 2048,
+        "relative_rms_change": 0.004615766885966028,
+        "bf16_equal_fraction": 0.41357421875
+      },
+      {
+        "layer": 14,
+        "sample_size": 2048,
+        "relative_rms_change": 0.004619951574339032,
+        "bf16_equal_fraction": 0.43017578125
+      },
+      {
+        "layer": 15,
+        "sample_size": 2048,
+        "relative_rms_change": 0.004272416179011071,
+        "bf16_equal_fraction": 0.46875
+      },
+      {
+        "layer": 16,
+        "sample_size": 2048,
+        "relative_rms_change": 0.0039035478018331097,
+        "bf16_equal_fraction": 0.5400390625
+      },
+      {
+        "layer": 17,
+        "sample_size": 2048,
+        "relative_rms_change": 0.0,
+        "bf16_equal_fraction": 1.0
+      }
+    ]
+  },
+  "results": {
+    "base": {
+      "replacements": [],
+      "prompts": {
+        "caption": {
+          "query": "caption en",
+          "raw_ids": [
+            651,
+            2416,
+            4918,
+            476,
+            5488,
+            576,
+            9113,
+            20677
+          ],
+          "text": "The image shows a collection of objects arranged",
+          "text_ascii": "'The image shows a collection of objects arranged'",
+          "unmapped_ids": [],
+          "nonlanguage_ids": [],
+          "eos_seen": false,
+          "prefix_probe_seconds": 13.408618677407503,
+          "generation_seconds": 66.37923897989094,
+          "first_token": {
+            "top10": [
+              {
+                "id": 651,
+                "piece": "The",
+                "logit": 5.364234924316406,
+                "probability": 0.5651823013921115
+              },
+              {
+                "id": 886,
+                "piece": "In",
+                "logit": 3.395514965057373,
+                "probability": 0.07891950249158347
+              },
+              {
+                "id": 1596,
+                "piece": "This",
+                "logit": 3.3430724143981934,
+                "probability": 0.07488741306365145
+              },
+              {
+                "id": 235285,
+                "piece": "I",
+                "logit": 2.1816067695617676,
+                "probability": 0.023441786593894988
+              },
+              {
+                "id": 4858,
+                "piece": "Here",
+                "logit": 2.140519142150879,
+                "probability": 0.02249813809087027
+              },
+              {
+                "id": 2045,
+                "piece": "You",
+                "logit": 1.8036257028579712,
+                "probability": 0.01606332937826925
+              },
+              {
+                "id": 3493,
+                "piece": "There",
+                "logit": 1.767277479171753,
+                "probability": 0.015489941709094294
+              },
+              {
+                "id": 235280,
+                "piece": "A",
+                "logit": 1.2718416452407837,
+                "probability": 0.009438102354209868
+              },
+              {
+                "id": 19337,
+                "piece": "Looking",
+                "logit": 0.785244345664978,
+                "probability": 0.005801740025709941
+              },
+              {
+                "id": 2122,
+                "piece": "On",
+                "logit": 0.7104771733283997,
+                "probability": 0.005383780186096149
+              }
+            ],
+            "probability_id_ge_250000": 0.01704611635189745,
+            "hidden_cosine_vs_base": 1.0000001192092896,
+            "kl_base_to_variant_nats": 0.0,
+            "probability_of_base_first_token": 0.5651823013921115
+          }
+        },
+        "subtask": {
+          "query": "Task: pick up the black bowl between the plate and the ramekin and place it on the plate\nSubtask:",
+          "raw_ids": [
+            18075,
+            908,
+            2301,
+            8811,
+            1
+          ],
+          "text": "pick up small plate",
+          "text_ascii": "'pick up small plate'",
+          "unmapped_ids": [],
+          "nonlanguage_ids": [],
+          "eos_seen": true,
+          "prefix_probe_seconds": 12.455420294776559,
+          "generation_seconds": 45.34032325260341,
+          "first_token": {
+            "top10": [
+              {
+                "id": 18075,
+                "piece": "pick",
+                "logit": 3.2148637771606445,
+                "probability": 0.8187898985664381
+              },
+              {
+                "id": 2931,
+                "piece": "move",
+                "logit": 0.38543176651000977,
+                "probability": 0.04834658101610372
+              },
+              {
+                "id": 3531,
+                "piece": "place",
+                "logit": -0.6550467610359192,
+                "probability": 0.017080151156675813
+              },
+              {
+                "id": 1065,
+                "piece": "put",
+                "logit": -0.7249879240989685,
+                "probability": 0.01592636251390599
+              },
+              {
+                "id": 956,
+                "piece": "no",
+                "logit": -0.9281096458435059,
+                "probability": 0.012998761631796226
+              },
+              {
+                "id": 1294,
+                "piece": "No",
+                "logit": -1.2423455715179443,
+                "probability": 0.00949360040224093
+              },
+              {
+                "id": 651,
+                "piece": "The",
+                "logit": -1.5259289741516113,
+                "probability": 0.007149445244567336
+              },
+              {
+                "id": 39109,
+                "piece": "adjust",
+                "logit": -1.771061897277832,
+                "probability": 0.005595159463315642
+              },
+              {
+                "id": 773,
+                "piece": "return",
+                "logit": -1.9703389406204224,
+                "probability": 0.004584242678118485
+              },
+              {
+                "id": 3345,
+                "piece": "hand",
+                "logit": -2.3932268619537354,
+                "probability": 0.0030033763809822786
+              }
+            ],
+            "probability_id_ge_250000": 0.014849527516836703,
+            "hidden_cosine_vs_base": 1.0,
+            "kl_base_to_variant_nats": 0.0,
+            "probability_of_base_first_token": 0.8187898985664381
+          }
+        }
+      }
+    },
+    "libero": {
+      "replacements": [],
+      "prompts": {
+        "caption": {
+          "query": "caption en",
+          "raw_ids": [
+            255700,
+            255693,
+            255669,
+            255692,
+            255681,
+            255180,
+            254403,
+            255705
+          ],
+          "text": "\u28ba\u228f\u0506\u2210\u136a\u5a84\u3284\u4290",
+          "text_ascii": "'\\u28ba\\u228f\\u0506\\u2210\\u136a\\u5a84\\u3284\\u4290'",
+          "unmapped_ids": [],
+          "nonlanguage_ids": [],
+          "eos_seen": false,
+          "prefix_probe_seconds": 11.787200508639216,
+          "generation_seconds": 62.51215846091509,
+          "first_token": {
+            "top10": [
+              {
+                "id": 255700,
+                "piece": "\u28ba",
+                "logit": 10.564072608947754,
+                "probability": 0.1934191377518653
+              },
+              {
+                "id": 255694,
+                "piece": "\u2340",
+                "logit": 10.350687026977539,
+                "probability": 0.1562526034258109
+              },
+              {
+                "id": 255669,
+                "piece": "\u0506",
+                "logit": 9.656998634338379,
+                "probability": 0.07808403025465777
+              },
+              {
+                "id": 255701,
+                "piece": "\u2919",
+                "logit": 8.693760871887207,
+                "probability": 0.02980117419680839
+              },
+              {
+                "id": 255676,
+                "piece": "\u1171",
+                "logit": 8.572885513305664,
+                "probability": 0.02640814371748382
+              },
+              {
+                "id": 255633,
+                "piece": "\uc211",
+                "logit": 8.509865760803223,
+                "probability": 0.024795264422417973
+              },
+              {
+                "id": 255693,
+                "piece": "\u228f",
+                "logit": 8.169809341430664,
+                "probability": 0.01764753766983829
+              },
+              {
+                "id": 255704,
+                "piece": "\u3800",
+                "logit": 8.169669151306152,
+                "probability": 0.017645063832742846
+              },
+              {
+                "id": 255606,
+                "piece": "\u8617",
+                "logit": 8.08748722076416,
+                "probability": 0.01625294534236582
+              },
+              {
+                "id": 255681,
+                "piece": "\u136a",
+                "logit": 8.062724113464355,
+                "probability": 0.015855414279112263
+              }
+            ],
+            "probability_id_ge_250000": 0.9912896882207418,
+            "hidden_cosine_vs_base": 0.11136855185031891,
+            "kl_base_to_variant_nats": 11.384134869925841,
+            "probability_of_base_first_token": 9.638241665981003e-07
+          }
+        },
+        "subtask": {
+          "query": "Task: pick up the black bowl between the plate and the ramekin and place it on the plate\nSubtask:",
+          "raw_ids": [
+            255689,
+            255406,
+            255638,
+            255683,
+            255609,
+            255684,
+            255406,
+            255359
+          ],
+          "text": "\u1e80\u1b5d\ud700\u13e8\u8e2f\u1511\u1b5d\uc9f9",
+          "text_ascii": "'\\u1e80\\u1b5d\\ud700\\u13e8\\u8e2f\\u1511\\u1b5d\\uc9f9'",
+          "unmapped_ids": [],
+          "nonlanguage_ids": [],
+          "eos_seen": false,
+          "prefix_probe_seconds": 12.244032863527536,
+          "generation_seconds": 63.98115021176636,
+          "first_token": {
+            "top10": [
+              {
+                "id": 255689,
+                "piece": "\u1e80",
+                "logit": 19.558027267456055,
+                "probability": 0.09684026618314648
+              },
+              {
+                "id": 255684,
+                "piece": "\u1511",
+                "logit": 19.349021911621094,
+                "probability": 0.07857530976192677
+              },
+              {
+                "id": 255677,
+                "piece": "\u12a7",
+                "logit": 18.21190643310547,
+                "probability": 0.025202471028724863
+              },
+              {
+                "id": 255693,
+                "piece": "\u228f",
+                "logit": 18.06842613220215,
+                "probability": 0.02183385497128441
+              },
+              {
+                "id": 255670,
+                "piece": "\u05a9",
+                "logit": 17.970794677734375,
+                "probability": 0.01980293761390986
+              },
+              {
+                "id": 255668,
+                "piece": "\u04dd",
+                "logit": 17.620250701904297,
+                "probability": 0.013947305217086476
+              },
+              {
+                "id": 255402,
+                "piece": "\u124d",
+                "logit": 17.60147476196289,
+                "probability": 0.013687874600331733
+              },
+              {
+                "id": 255636,
+                "piece": "\ud439",
+                "logit": 17.55353546142578,
+                "probability": 0.013047167686891846
+              },
+              {
+                "id": 255672,
+                "piece": "\u0676",
+                "logit": 17.51091194152832,
+                "probability": 0.012502736681035222
+              },
+              {
+                "id": 255523,
+                "piece": "\ud835\udda2",
+                "logit": 17.387678146362305,
+                "probability": 0.01105313125884146
+              }
+            ],
+            "probability_id_ge_250000": 0.9997092770623338,
+            "hidden_cosine_vs_base": 0.2895558774471283,
+            "kl_base_to_variant_nats": 23.181374800142372,
+            "probability_of_base_first_token": 1.413128230407748e-11
+          }
+        }
+      }
+    },
+    "libero_restore_base_vision": {
+      "replacements": [
+        {
+          "path": "PaliGemma/img/Transformer/encoder_norm/bias",
+          "layers": "all"
+        },
+        {
+          "path": "PaliGemma/img/Transformer/encoder_norm/scale",
+          "layers": "all"
+        },
+        {
+          "path": "PaliGemma/img/Transformer/encoderblock/LayerNorm_0/bias",
+          "layers": "all"
+        },
+        {
+          "path": "PaliGemma/img/Transformer/encoderblock/LayerNorm_0/scale",
+          "layers": "all"
+        },
+        {
+          "path": "PaliGemma/img/Transformer/encoderblock/LayerNorm_1/bias",
+          "layers": "all"
+        },
+        {
+          "path": "PaliGemma/img/Transformer/encoderblock/LayerNorm_1/scale",
+          "layers": "all"
+        },
+        {
+          "path": "PaliGemma/img/Transformer/encoderblock/MlpBlock_0/Dense_0/bias",
+          "layers": "all"
+        },
+        {
+          "path": "PaliGemma/img/Transformer/encoderblock/MlpBlock_0/Dense_0/kernel",
+          "layers": "all"
+        },
+        {
+          "path": "PaliGemma/img/Transformer/encoderblock/MlpBlock_0/Dense_1/bias",
+          "layers": "all"
+        },
+        {
+          "path": "PaliGemma/img/Transformer/encoderblock/MlpBlock_0/Dense_1/kernel",
+          "layers": "all"
+        },
+        {
+          "path": "PaliGemma/img/Transformer/encoderblock/MultiHeadDotProductAttention_0/key/bias",
+          "layers": "all"
+        },
+        {
+          "path": "PaliGemma/img/Transformer/encoderblock/MultiHeadDotProductAttention_0/key/kernel",
+          "layers": "all"
+        },
+        {
+          "path": "PaliGemma/img/Transformer/encoderblock/MultiHeadDotProductAttention_0/out/bias",
+          "layers": "all"
+        },
+        {
+          "path": "PaliGemma/img/Transformer/encoderblock/MultiHeadDotProductAttention_0/out/kernel",
+          "layers": "all"
+        },
+        {
+          "path": "PaliGemma/img/Transformer/encoderblock/MultiHeadDotProductAttention_0/query/bias",
+          "layers": "all"
+        },
+        {
+          "path": "PaliGemma/img/Transformer/encoderblock/MultiHeadDotProductAttention_0/query/kernel",
+          "layers": "all"
+        },
+        {
+          "path": "PaliGemma/img/Transformer/encoderblock/MultiHeadDotProductAttention_0/value/bias",
+          "layers": "all"
+        },
+        {
+          "path": "PaliGemma/img/Transformer/encoderblock/MultiHeadDotProductAttention_0/value/kernel",
+          "layers": "all"
+        },
+        {
+          "path": "PaliGemma/img/embedding/bias",
+          "layers": "all"
+        },
+        {
+          "path": "PaliGemma/img/embedding/kernel",
+          "layers": "all"
+        },
+        {
+          "path": "PaliGemma/img/head/bias",
+          "layers": "all"
+        },
+        {
+          "path": "PaliGemma/img/head/kernel",
+          "layers": "all"
+        },
+        {
+          "path": "PaliGemma/img/pos_embedding",
+          "layers": "all"
+        }
+      ],
+      "prompts": {
+        "caption": {
+          "query": "caption en",
+          "raw_ids": [
+            255259,
+            255693,
+            254899,
+            255171,
+            255171,
+            255705,
+            255541,
+            255705
+          ],
+          "text": "\u0400\u228f\ue058\u3186\u3186\u4290\u1168\u4290",
+          "text_ascii": "'\\u0400\\u228f\\ue058\\u3186\\u3186\\u4290\\u1168\\u4290'",
+          "unmapped_ids": [],
+          "nonlanguage_ids": [
+            254899
+          ],
+          "eos_seen": false,
+          "prefix_probe_seconds": 11.748068636283278,
+          "generation_seconds": 63.024932220578194,
+          "first_token": {
+            "top10": [
+              {
+                "id": 255259,
+                "piece": "\u0400",
+                "logit": 0.6699583530426025,
+                "probability": 0.038392704778764705
+              },
+              {
+                "id": 651,
+                "piece": "The",
+                "logit": 0.4374126195907593,
+                "probability": 0.030426736997623605
+              },
+              {
+                "id": 255556,
+                "piece": "\u2250",
+                "logit": 0.3798332214355469,
+                "probability": 0.028724267708078788
+              },
+              {
+                "id": 7071,
+                "piece": "Task",
+                "logit": 0.3769310712814331,
+                "probability": 0.028641026417909332
+              },
+              {
+                "id": 4022,
+                "piece": "Action",
+                "logit": 0.1741846799850464,
+                "probability": 0.023384976558657955
+              },
+              {
+                "id": 1294,
+                "piece": "No",
+                "logit": -0.46995460987091064,
+                "probability": 0.012279786037514919
+              },
+              {
+                "id": 3493,
+                "piece": "There",
+                "logit": -0.5609349012374878,
+                "probability": 0.011211883107021271
+              },
+              {
+                "id": 6818,
+                "piece": "Right",
+                "logit": -0.569251298904419,
+                "probability": 0.011119027276691094
+              },
+              {
+                "id": 255560,
+                "piece": "\u24cd",
+                "logit": -0.6184091567993164,
+                "probability": 0.010585656792071371
+              },
+              {
+                "id": 956,
+                "piece": "no",
+                "logit": -0.6773707866668701,
+                "probability": 0.009979553223292255
+              }
+            ],
+            "probability_id_ge_250000": 0.49156824129691074,
+            "hidden_cosine_vs_base": 0.26328521966934204,
+            "kl_base_to_variant_nats": 2.742748467874776,
+            "probability_of_base_first_token": 0.030426736997623605
+          }
+        },
+        "subtask": {
+          "query": "Task: pick up the black bowl between the plate and the ramekin and place it on the plate\nSubtask:",
+          "raw_ids": [
+            255629,
+            255180,
+            255180,
+            255704,
+            255665,
+            255676,
+            255633,
+            255633
+          ],
+          "text": "\ub5c4\u5a84\u5a84\u3800\u02b6\u1171\uc211\uc211",
+          "text_ascii": "'\\ub5c4\\u5a84\\u5a84\\u3800\\u02b6\\u1171\\uc211\\uc211'",
+          "unmapped_ids": [],
+          "nonlanguage_ids": [],
+          "eos_seen": false,
+          "prefix_probe_seconds": 12.157109078019857,
+          "generation_seconds": 63.31379263661802,
+          "first_token": {
+            "top10": [
+              {
+                "id": 255629,
+                "piece": "\ub5c4",
+                "logit": 8.156051635742188,
+                "probability": 0.03923876589394222
+              },
+              {
+                "id": 255525,
+                "piece": "\ud835\udf13",
+                "logit": 7.997081756591797,
+                "probability": 0.03347153261379128
+              },
+              {
+                "id": 255693,
+                "piece": "\u228f",
+                "logit": 7.7913713455200195,
+                "probability": 0.027248129969312137
+              },
+              {
+                "id": 255395,
+                "piece": "\u04d2",
+                "logit": 7.7478179931640625,
+                "probability": 0.02608685483842756
+              },
+              {
+                "id": 255682,
+                "piece": "\u13b1",
+                "logit": 7.6049485206604,
+                "probability": 0.022613839111062378
+              },
+              {
+                "id": 254403,
+                "piece": "\u3284",
+                "logit": 7.588525295257568,
+                "probability": 0.022245480035698498
+              },
+              {
+                "id": 255676,
+                "piece": "\u1171",
+                "logit": 7.5408782958984375,
+                "probability": 0.02121040459684515
+              },
+              {
+                "id": 255670,
+                "piece": "\u05a9",
+                "logit": 7.40741491317749,
+                "probability": 0.018560366268036622
+              },
+              {
+                "id": 255428,
+                "piece": "\u4f82",
+                "logit": 7.210582733154297,
+                "probability": 0.015244156989583575
+              },
+              {
+                "id": 255560,
+                "piece": "\u24cd",
+                "logit": 7.074947357177734,
+                "probability": 0.01331060259761367
+              }
+            ],
+            "probability_id_ge_250000": 0.9712689268257653,
+            "hidden_cosine_vs_base": 0.593799889087677,
+            "kl_base_to_variant_nats": 14.519769547964154,
+            "probability_of_base_first_token": 7.681674806973876e-08
+          }
+        }
+      }
+    },
+    "libero_restore_base_readout": {
+      "replacements": [
+        {
+          "path": "PaliGemma/llm/embedder/input_embedding",
+          "layers": "all"
+        },
+        {
+          "path": "PaliGemma/llm/final_norm/scale",
+          "layers": "all"
+        }
+      ],
+      "prompts": {
+        "caption": {
+          "query": "caption en",
+          "raw_ids": [
+            255700,
+            255693,
+            255669,
+            255692,
+            255681,
+            255180,
+            254403,
+            255705
+          ],
+          "text": "\u28ba\u228f\u0506\u2210\u136a\u5a84\u3284\u4290",
+          "text_ascii": "'\\u28ba\\u228f\\u0506\\u2210\\u136a\\u5a84\\u3284\\u4290'",
+          "unmapped_ids": [],
+          "nonlanguage_ids": [],
+          "eos_seen": false,
+          "prefix_probe_seconds": 12.09665590338409,
+          "generation_seconds": 62.22798893973231,
+          "first_token": {
+            "top10": [
+              {
+                "id": 255700,
+                "piece": "\u28ba",
+                "logit": 12.53355598449707,
+                "probability": 0.3345477385566168
+              },
+              {
+                "id": 255694,
+                "piece": "\u2340",
+                "logit": 11.99447250366211,
+                "probability": 0.19513587381492273
+              },
+              {
+                "id": 255669,
+                "piece": "\u0506",
+                "logit": 10.721445083618164,
+                "probability": 0.05463467118827135
+              },
+              {
+                "id": 255701,
+                "piece": "\u2919",
+                "logit": 10.328577041625977,
+                "probability": 0.036884840595960346
+              },
+              {
+                "id": 255676,
+                "piece": "\u1171",
+                "logit": 9.96561336517334,
+                "probability": 0.025657526675786056
+              },
+              {
+                "id": 255633,
+                "piece": "\uc211",
+                "logit": 9.692487716674805,
+                "probability": 0.01952530502194353
+              },
+              {
+                "id": 255606,
+                "piece": "\u8617",
+                "logit": 9.225822448730469,
+                "probability": 0.01224412279200397
+              },
+              {
+                "id": 255693,
+                "piece": "\u228f",
+                "logit": 9.182477951049805,
+                "probability": 0.011724744840617609
+              },
+              {
+                "id": 255660,
+                "piece": "\ud83e\udec5",
+                "logit": 9.07388973236084,
+                "probability": 0.010518265669578137
+              },
+              {
+                "id": 255689,
+                "piece": "\u1e80",
+                "logit": 9.05079174041748,
+                "probability": 0.01027809921297427
+              }
+            ],
+            "probability_id_ge_250000": 0.995402642142211,
+            "hidden_cosine_vs_base": 0.08885639160871506,
+            "kl_base_to_variant_nats": 12.234526614589203,
+            "probability_of_base_first_token": 3.9056413990188977e-07
+          }
+        },
+        "subtask": {
+          "query": "Task: pick up the black bowl between the plate and the ramekin and place it on the plate\nSubtask:",
+          "raw_ids": [
+            255689,
+            255406,
+            255638,
+            255683,
+            255615,
+            255684,
+            255406,
+            255359
+          ],
+          "text": "\u1e80\u1b5d\ud700\u13e8\u93f7\u1511\u1b5d\uc9f9",
+          "text_ascii": "'\\u1e80\\u1b5d\\ud700\\u13e8\\u93f7\\u1511\\u1b5d\\uc9f9'",
+          "unmapped_ids": [],
+          "nonlanguage_ids": [],
+          "eos_seen": false,
+          "prefix_probe_seconds": 13.196688205003738,
+          "generation_seconds": 63.520813969895244,
+          "first_token": {
+            "top10": [
+              {
+                "id": 255689,
+                "piece": "\u1e80",
+                "logit": 19.237152099609375,
+                "probability": 0.10869884859431331
+              },
+              {
+                "id": 255684,
+                "piece": "\u1511",
+                "logit": 18.962074279785156,
+                "probability": 0.08255819030504499
+              },
+              {
+                "id": 255677,
+                "piece": "\u12a7",
+                "logit": 17.949893951416016,
+                "probability": 0.03000377038811852
+              },
+              {
+                "id": 255670,
+                "piece": "\u05a9",
+                "logit": 17.748077392578125,
+                "probability": 0.024520426246222103
+              },
+              {
+                "id": 255693,
+                "piece": "\u228f",
+                "logit": 17.525115966796875,
+                "probability": 0.019619913958890397
+              },
+              {
+                "id": 255672,
+                "piece": "\u0676",
+                "logit": 17.31272315979004,
+                "probability": 0.01586558442513572
+              },
+              {
+                "id": 255636,
+                "piece": "\ud439",
+                "logit": 17.26478385925293,
+                "probability": 0.015122942493955087
+              },
+              {
+                "id": 255668,
+                "piece": "\u04dd",
+                "logit": 17.26241683959961,
+                "probability": 0.015087188523724447
+              },
+              {
+                "id": 255682,
+                "piece": "\u13b1",
+                "logit": 17.02480125427246,
+                "probability": 0.011896334842229484
+              },
+              {
+                "id": 255539,
+                "piece": "\u0e65",
+                "logit": 16.983043670654297,
+                "probability": 0.011409801567373404
+              }
+            ],
+            "probability_id_ge_250000": 0.9996535651604243,
+            "hidden_cosine_vs_base": 0.24308279156684875,
+            "kl_base_to_variant_nats": 24.296130785003893,
+            "probability_of_base_first_token": 3.8159892778039696e-12
+          }
+        }
+      }
+    },
+    "libero_restore_base_language_layers": {
+      "replacements": [
+        {
+          "path": "PaliGemma/llm/layers/attn/attn_vec_einsum/w",
+          "layers": "all"
+        },
+        {
+          "path": "PaliGemma/llm/layers/attn/kv_einsum/w",
+          "layers": "all"
+        },
+        {
+          "path": "PaliGemma/llm/layers/attn/q_einsum/w",
+          "layers": "all"
+        },
+        {
+          "path": "PaliGemma/llm/layers/mlp/gating_einsum",
+          "layers": "all"
+        },
+        {
+          "path": "PaliGemma/llm/layers/mlp/linear",
+          "layers": "all"
+        },
+        {
+          "path": "PaliGemma/llm/layers/pre_attention_norm/scale",
+          "layers": "all"
+        },
+        {
+          "path": "PaliGemma/llm/layers/pre_ffw_norm/scale",
+          "layers": "all"
+        }
+      ],
+      "prompts": {
+        "caption": {
+          "query": "caption en",
+          "raw_ids": [
+            3351,
+            8277,
+            235292,
+            235248,
+            18075,
+            908,
+            12989,
+            576
+          ],
+          "text": "Subtask: pick up bottle of",
+          "text_ascii": "'Subtask: pick up bottle of'",
+          "unmapped_ids": [],
+          "nonlanguage_ids": [],
+          "eos_seen": false,
+          "prefix_probe_seconds": 11.956993332132697,
+          "generation_seconds": 63.50525667145848,
+          "first_token": {
+            "top10": [
+              {
+                "id": 3351,
+                "piece": "Sub",
+                "logit": 14.73946762084961,
+                "probability": 0.9999161425099453
+              },
+              {
+                "id": 2931,
+                "piece": "move",
+                "logit": 2.1693992614746094,
+                "probability": 3.4741795053978414e-06
+              },
+              {
+                "id": 773,
+                "piece": "return",
+                "logit": 1.7336376905441284,
+                "probability": 2.2470020058047696e-06
+              },
+              {
+                "id": 39109,
+                "piece": "adjust",
+                "logit": 1.4920941591262817,
+                "probability": 1.7648277896565811e-06
+              },
+              {
+                "id": 1065,
+                "piece": "put",
+                "logit": 0.8697397708892822,
+                "probability": 9.471466016195142e-07
+              },
+              {
+                "id": 18075,
+                "piece": "pick",
+                "logit": 0.7865809202194214,
+                "probability": 8.715693127669665e-07
+              },
+              {
+                "id": 1294,
+                "piece": "No",
+                "logit": 0.4581144452095032,
+                "probability": 6.275535331211483e-07
+              },
+              {
+                "id": 3345,
+                "piece": "hand",
+                "logit": 0.2928299009799957,
+                "probability": 5.319470044266651e-07
+              },
+              {
+                "id": 23801,
+                "piece": "pull",
+                "logit": 0.15616554021835327,
+                "probability": 4.639976456004177e-07
+              },
+              {
+                "id": 3446,
+                "piece": "close",
+                "logit": 0.10001686215400696,
+                "probability": 4.386627738710416e-07
+              }
+            ],
+            "probability_id_ge_250000": 1.6421362725290773e-05,
+            "hidden_cosine_vs_base": 0.1127995103597641,
+            "kl_base_to_variant_nats": 15.965142628038702,
+            "probability_of_base_first_token": 1.386835130224892e-08
+          }
+        },
+        "subtask": {
+          "query": "Task: pick up the black bowl between the plate and the ramekin and place it on the plate\nSubtask:",
+          "raw_ids": [
+            3351,
+            8277,
+            235292,
+            235248,
+            18075,
+            908,
+            14581,
+            1
+          ],
+          "text": "Subtask: pick up bowl",
+          "text_ascii": "'Subtask: pick up bowl'",
+          "unmapped_ids": [],
+          "nonlanguage_ids": [],
+          "eos_seen": true,
+          "prefix_probe_seconds": 12.166809935122728,
+          "generation_seconds": 67.5390185341239,
+          "first_token": {
+            "top10": [
+              {
+                "id": 3351,
+                "piece": "Sub",
+                "logit": 16.093639373779297,
+                "probability": 0.9999301526810085
+              },
+              {
+                "id": 2931,
+                "piece": "move",
+                "logit": 3.413991928100586,
+                "probability": 3.113642499428001e-06
+              },
+              {
+                "id": 39109,
+                "piece": "adjust",
+                "logit": 2.8128607273101807,
+                "probability": 1.7068709206970612e-06
+              },
+              {
+                "id": 1065,
+                "piece": "put",
+                "logit": 2.6418616771698,
+                "probability": 1.4385896875246567e-06
+              },
+              {
+                "id": 773,
+                "piece": "return",
+                "logit": 2.6288487911224365,
+                "probability": 1.4199907591733082e-06
+              },
+              {
+                "id": 1294,
+                "piece": "No",
+                "logit": 2.1197831630706787,
+                "probability": 8.534952824312904e-07
+              },
+              {
+                "id": 3345,
+                "piece": "hand",
+                "logit": 2.072889804840088,
+                "probability": 8.143953543623967e-07
+              },
+              {
+                "id": 3531,
+                "piece": "place",
+                "logit": 1.8369109630584717,
+                "probability": 6.432077808509564e-07
+              },
+              {
+                "id": 18075,
+                "piece": "pick",
+                "logit": 1.8191311359405518,
+                "probability": 6.318724226856544e-07
+              },
+              {
+                "id": 3553,
+                "piece": "Yes",
+                "logit": 1.4217252731323242,
+                "probability": 4.2465704343707314e-07
+              }
+            ],
+            "probability_id_ge_250000": 1.2770448901176745e-05,
+            "hidden_cosine_vs_base": 0.7133690714836121,
+            "kl_base_to_variant_nats": 13.206804286664218,
+            "probability_of_base_first_token": 6.318724226856544e-07
+          }
+        }
+      }
+    },
+    "base_inject_libero_language_layers": {
+      "replacements": [
+        {
+          "path": "PaliGemma/llm/layers/attn/attn_vec_einsum/w",
+          "layers": "all"
+        },
+        {
+          "path": "PaliGemma/llm/layers/attn/kv_einsum/w",
+          "layers": "all"
+        },
+        {
+          "path": "PaliGemma/llm/layers/attn/q_einsum/w",
+          "layers": "all"
+        },
+        {
+          "path": "PaliGemma/llm/layers/mlp/gating_einsum",
+          "layers": "all"
+        },
+        {
+          "path": "PaliGemma/llm/layers/mlp/linear",
+          "layers": "all"
+        },
+        {
+          "path": "PaliGemma/llm/layers/pre_attention_norm/scale",
+          "layers": "all"
+        },
+        {
+          "path": "PaliGemma/llm/layers/pre_ffw_norm/scale",
+          "layers": "all"
+        }
+      ],
+      "prompts": {
+        "caption": {
+          "query": "caption en",
+          "raw_ids": [
+            255259,
+            255693,
+            255669,
+            255686,
+            255636,
+            255689,
+            255637,
+            255686
+          ],
+          "text": "\u0400\u228f\u0506\u1cdd\ud439\u1e80\ud446\u1cdd",
+          "text_ascii": "'\\u0400\\u228f\\u0506\\u1cdd\\ud439\\u1e80\\ud446\\u1cdd'",
+          "unmapped_ids": [],
+          "nonlanguage_ids": [],
+          "eos_seen": false,
+          "prefix_probe_seconds": 11.62492903508246,
+          "generation_seconds": 63.12687228061259,
+          "first_token": {
+            "top10": [
+              {
+                "id": 255259,
+                "piece": "\u0400",
+                "logit": 1.2924418449401855,
+                "probability": 0.04177995439241524
+              },
+              {
+                "id": 255556,
+                "piece": "\u2250",
+                "logit": 0.8990521430969238,
+                "probability": 0.02819168179637853
+              },
+              {
+                "id": 7071,
+                "piece": "Task",
+                "logit": 0.5191287398338318,
+                "probability": 0.019280680021953777
+              },
+              {
+                "id": 651,
+                "piece": "The",
+                "logit": 0.4937533140182495,
+                "probability": 0.018797579914413883
+              },
+              {
+                "id": 4022,
+                "piece": "Action",
+                "logit": 0.32163453102111816,
+                "probability": 0.015825290906775515
+              },
+              {
+                "id": 255560,
+                "piece": "\u24cd",
+                "logit": 0.05063772201538086,
+                "probability": 0.012068666416899935
+              },
+              {
+                "id": 255648,
+                "piece": "\uf9f7",
+                "logit": -0.05064678192138672,
+                "probability": 0.010906162949394145
+              },
+              {
+                "id": 6818,
+                "piece": "Right",
+                "logit": -0.12949419021606445,
+                "probability": 0.01007926788308063
+              },
+              {
+                "id": 1294,
+                "piece": "No",
+                "logit": -0.1590101718902588,
+                "probability": 0.009786116011932687
+              },
+              {
+                "id": 1,
+                "piece": "<eos>",
+                "logit": -0.20707428455352783,
+                "probability": 0.009326879824958471
+              }
+            ],
+            "probability_id_ge_250000": 0.5717104790642797,
+            "hidden_cosine_vs_base": 0.25363314151763916,
+            "kl_base_to_variant_nats": 3.1247932646101697,
+            "probability_of_base_first_token": 0.018797579914413883
+          }
+        },
+        "subtask": {
+          "query": "Task: pick up the black bowl between the plate and the ramekin and place it on the plate\nSubtask:",
+          "raw_ids": [
+            255693,
+            255710,
+            255331,
+            255693,
+            255331,
+            255693,
+            255605,
+            253977
+          ],
+          "text": "\u228f\u581f\u8220\u228f\u8220\u228f\u851f\ub2a0",
+          "text_ascii": "'\\u228f\\u581f\\u8220\\u228f\\u8220\\u228f\\u851f\\ub2a0'",
+          "unmapped_ids": [],
+          "nonlanguage_ids": [],
+          "eos_seen": false,
+          "prefix_probe_seconds": 12.48160532861948,
+          "generation_seconds": 67.6461830753833,
+          "first_token": {
+            "top10": [
+              {
+                "id": 255693,
+                "piece": "\u228f",
+                "logit": 7.354291915893555,
+                "probability": 0.029254707222469277
+              },
+              {
+                "id": 255395,
+                "piece": "\u04d2",
+                "logit": 7.304243087768555,
+                "probability": 0.02782657956228873
+              },
+              {
+                "id": 255629,
+                "piece": "\ub5c4",
+                "logit": 7.290780544281006,
+                "probability": 0.02745447339259635
+              },
+              {
+                "id": 255525,
+                "piece": "\ud835\udf13",
+                "logit": 7.273453712463379,
+                "probability": 0.026982871828564528
+              },
+              {
+                "id": 255676,
+                "piece": "\u1171",
+                "logit": 7.246981620788574,
+                "probability": 0.02627795031066175
+              },
+              {
+                "id": 255670,
+                "piece": "\u05a9",
+                "logit": 7.033289909362793,
+                "probability": 0.02122200223744539
+              },
+              {
+                "id": 255682,
+                "piece": "\u13b1",
+                "logit": 6.956002235412598,
+                "probability": 0.01964358478434096
+              },
+              {
+                "id": 255665,
+                "piece": "\u02b6",
+                "logit": 6.899411678314209,
+                "probability": 0.01856281254446222
+              },
+              {
+                "id": 254403,
+                "piece": "\u3284",
+                "logit": 6.8660430908203125,
+                "probability": 0.017953618212337052
+              },
+              {
+                "id": 255688,
+                "piece": "\u1e69",
+                "logit": 6.7082319259643555,
+                "probability": 0.015332588054270173
+              }
+            ],
+            "probability_id_ge_250000": 0.9689307489102731,
+            "hidden_cosine_vs_base": 0.5762100219726562,
+            "kl_base_to_variant_nats": 15.082618519862995,
+            "probability_of_base_first_token": 3.975043733102042e-08
+          }
+        }
+      }
+    }
+  }
+}
